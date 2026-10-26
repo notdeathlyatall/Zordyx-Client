@@ -12,6 +12,10 @@ class PageGroup internal constructor(val id: String, val title: PageText, val or
 
     companion object {
         @JvmField
+        val ZORDYX: PageGroup =
+            PageGroup("oneconfig:zordyx", PageText.translatable("oneconfig.pagegroup.zordyx", "Zordyx Client"), 50)
+
+        @JvmField
         val MODS_AND_OPTIONS: PageGroup =
             PageGroup("oneconfig:mods_and_options", PageText.translatable("oneconfig.pagegroup.mods_and_options", "Mods & Options"), 100)
 
@@ -21,7 +25,7 @@ class PageGroup internal constructor(val id: String, val title: PageText, val or
 
         @JvmField
         val ONECONFIG: PageGroup =
-            PageGroup("oneconfig:oneconfig", PageText.translatable("oneconfig.pagegroup.oneconfig", "OneConfig"), 300)
+            PageGroup("oneconfig:oneconfig", PageText.translatable("oneconfig.pagegroup.oneconfig", "Zordyx Client"), 300)
 
         @JvmStatic
         fun create(id: String, title: PageText, order: Int): PageGroup {

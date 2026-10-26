@@ -16,16 +16,17 @@ object ThemeRegistry {
     internal val registry = mutableStateListOf<UITheme>()
     internal var activeTheme by mutableStateOf<UITheme?>(null)
 
-    private const val DEFAULT_THEME_NAME = "PolyGlass Dark"
+    private const val DEFAULT_THEME_NAME = "Zordyx Dark"
 
     init {
+        register(ZordyxDark)
         register(PolyGlassDark)
         register(PolyGlassLight)
         register(MinecraftDark)
         register(MinecraftLight)
 
-        activeTheme = PolyGlassDark
-        syncNotificationTheme(PolyGlassDark)
+        activeTheme = ZordyxDark
+        syncNotificationTheme(ZordyxDark)
 
         BuiltinVisualizers.register()
 

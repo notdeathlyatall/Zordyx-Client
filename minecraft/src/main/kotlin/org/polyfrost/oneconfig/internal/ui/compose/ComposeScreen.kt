@@ -403,7 +403,7 @@ abstract class ComposeScreen(
         cachedSurfaceScale = -1f
 
         if (!bindContent()) {
-            closeWithMessage("OneConfig's UI failed to start. Please check your logs and report this.")
+            closeWithMessage("Zordyx Client's UI failed to start. Please check your logs and report this.")
             return
         }
 
@@ -532,7 +532,7 @@ abstract class ComposeScreen(
 
     private fun reportUnavailableAndClose() {
         val reason = ComposeSupport.unavailableReason()
-            ?: "OneConfig's UI failed to start. Please check your logs and report this."
+            ?: "Zordyx Client's UI failed to start. Please check your logs and report this."
         LOGGER.error("Refusing to open ${this::class.java.simpleName}: {}", reason)
         closeWithMessage(reason)
     }
@@ -645,7 +645,7 @@ abstract class ComposeScreen(
                     this::class.java.simpleName, sceneRebuilds,
                 )
                 closeSceneQuietly()
-                closeWithMessage("OneConfig's UI hit a rendering error and had to close.")
+                closeWithMessage("Zordyx Client's UI hit a rendering error and had to close.")
                 return
             }
             sceneRebuilds++
@@ -655,7 +655,7 @@ abstract class ComposeScreen(
                 closeSceneQuietly()
                 closeWithMessage(
                     ComposeSupport.unavailableReason()
-                        ?: "OneConfig's UI hit a rendering error and had to close."
+                        ?: "Zordyx Client's UI hit a rendering error and had to close."
                 )
                 return
             }

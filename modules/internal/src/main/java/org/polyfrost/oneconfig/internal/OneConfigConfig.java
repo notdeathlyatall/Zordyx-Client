@@ -654,7 +654,7 @@ public class OneConfigConfig extends Config {
         registeredHudRedoAltKeybind = new AtomicReference<>();
 
     public OneConfigConfig() {
-        super("oneconfig.json", "assets/oneconfig/brand/oneconfig-icon.svg", "OneConfig", Category.QOL);
+        super("oneconfig.json", "assets/oneconfig/brand/oneconfig-icon.svg", "Zordyx Client", Category.QOL);
         INSTANCE = this;
     }
 

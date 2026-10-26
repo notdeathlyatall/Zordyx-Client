@@ -36,6 +36,7 @@ import org.polyfrost.oneconfig.internal.OneConfigConfig
 import org.polyfrost.oneconfig.internal.ui.components.RetainedVisibility
 import org.polyfrost.oneconfig.internal.ui.hud.screens.HudDragLayer
 import org.polyfrost.oneconfig.internal.ui.navigation.graph.ModsGraph
+import org.polyfrost.oneconfig.internal.ui.navigation.graph.ZordyxModulesGraph
 import org.polyfrost.oneconfig.internal.ui.shell.LocalShell
 import org.polyfrost.oneconfig.internal.ui.shell.LocalShellNavController
 import org.polyfrost.oneconfig.internal.ui.shell.Shell
@@ -57,7 +58,7 @@ private const val GRAPH_WAIT_TIMEOUT_MS = 10_000L
 fun OneConfigInterface(
     windowWidth: Float,
     windowHeight: Float,
-    initialRoute: Any = ModsGraph,
+    initialRoute: Any = ZordyxModulesGraph,
     /** Set when [initialRoute] is a page the user was already on which is put back without a transition and keeps its search */
     restoring: Boolean = false,
     openRevision: Int = 0,

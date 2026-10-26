@@ -2,15 +2,16 @@
   "schemaVersion": 1,
   "id": "${mod_id}",
   "version": "${mod_version}",
-  "name": "OneConfig",
+  "name": "Zordyx Client",
   "description": "Access all your mod settings in one place, with a sleek and intuitive interface.",
   "authors": [
+    "Zordyx",
     "Polyfrost"
   ],
   "contact": {
-    "homepage": "https://polyfrost.org",
-    "sources": "https://github.com/Polyfrost/OneConfig",
-    "issues": "https://inv.wtf/polyfrost"
+    "homepage": "https://github.com/notdeathlyatall/Zordyx-Client",
+    "sources": "https://github.com/notdeathlyatall/Zordyx-Client",
+    "issues": "https://github.com/notdeathlyatall/Zordyx-Client/issues"
   },
   "icon": "oneconfig-icon.png",
   "provides": [

@@ -207,7 +207,7 @@ private fun OpenOriginalScreenButton(runnable: Runnable) {
     Tooltip(
         text = {
             Text(
-                translated("oneconfig.header.original_menu.tooltip", "Opening the original screen may show options that OneConfig doesn't."),
+                translated("oneconfig.header.original_menu.tooltip", "Opening the original screen may show options that Zordyx Client doesn't."),
                 color = theme.textColor,
                 fontSize = 13.sp,
             )

@@ -23,7 +23,7 @@ class KeybindHelper {
     /**
      * Category heading for this keybind in Minecraft's Controls menu
      *
-     * Defaults to "OneConfig"
+     * Defaults to "Zordyx Client"
      */
     fun category(category: String) = apply { this.category = category }
     fun shift() = apply { mods = (mods or KeyModifiers.SHIFT).toByte() }

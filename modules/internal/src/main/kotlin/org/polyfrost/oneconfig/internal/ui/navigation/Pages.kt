@@ -26,6 +26,13 @@ import org.polyfrost.oneconfig.internal.ui.navigation.graph.ModsGraph
 import org.polyfrost.oneconfig.internal.ui.navigation.graph.PreferencesGraph
 import org.polyfrost.oneconfig.internal.ui.navigation.graph.ProfilesGraph
 import org.polyfrost.oneconfig.internal.ui.navigation.graph.ThemesGraph
+import org.polyfrost.oneconfig.internal.ui.navigation.graph.ZordyxFriendsGraph
+import org.polyfrost.oneconfig.internal.ui.navigation.graph.ZordyxLegitModsGraph
+import org.polyfrost.oneconfig.internal.ui.navigation.graph.ZordyxMacrosGraph
+import org.polyfrost.oneconfig.internal.ui.navigation.graph.ZordyxModulesGraph
+import org.polyfrost.oneconfig.internal.ui.navigation.graph.ZordyxOnlineGraph
+import org.polyfrost.oneconfig.internal.ui.navigation.graph.ZordyxOverlaysGraph
+import org.polyfrost.oneconfig.internal.ui.navigation.graph.ZordyxSettingsGraph
 import org.polyfrost.oneconfig.internal.ui.screens.Changelog
 import org.polyfrost.oneconfig.internal.ui.screens.Credits
 import org.polyfrost.oneconfig.internal.ui.screens.Keybinds
@@ -34,6 +41,15 @@ import org.polyfrost.oneconfig.internal.ui.screens.Preferences
 import org.polyfrost.oneconfig.internal.ui.screens.Profiles
 import org.polyfrost.oneconfig.internal.ui.screens.Themes
 import org.polyfrost.oneconfig.internal.ui.shell.LocalShell
+import org.polyfrost.oneconfig.internal.ui.zordyx.ModuleCategory
+import org.polyfrost.oneconfig.internal.ui.zordyx.SettingsSection
+import org.polyfrost.oneconfig.internal.ui.zordyx.ZordyxFriendsScreen
+import org.polyfrost.oneconfig.internal.ui.zordyx.ZordyxLegitModsScreen
+import org.polyfrost.oneconfig.internal.ui.zordyx.ZordyxMacrosScreen
+import org.polyfrost.oneconfig.internal.ui.zordyx.ZordyxModulesScreen
+import org.polyfrost.oneconfig.internal.ui.zordyx.ZordyxOnlineScreen
+import org.polyfrost.oneconfig.internal.ui.zordyx.ZordyxOverlaysScreen
+import org.polyfrost.oneconfig.internal.ui.zordyx.ZordyxSettingsScreen
 
 @Serializable
 data class PageRoute(val pageId: String)
@@ -66,6 +82,19 @@ object BuiltinPages {
         BuiltinPage("keybinds", "Keybinds", "keyboard", PageGroup.MODS_AND_OPTIONS, 300, KeybindsGraph) { Keybinds() },
         BuiltinPage("themes", "Themes", "paintbrush", PageGroup.PERSONALIZATION, 100, ThemesGraph) { Themes() },
         BuiltinPage("preferences", "Preferences", "cog", PageGroup.PERSONALIZATION, 200, PreferencesGraph) { Preferences() },
+        BuiltinPage("zordyx_modules", "Modules", "combat", PageGroup.ZORDYX, 100, ZordyxModulesGraph) {
+            ZordyxModulesScreen(ModuleCategory.Combat)
+        },
+        BuiltinPage("zordyx_overlays", "Overlays", "hud", PageGroup.ZORDYX, 200, ZordyxOverlaysGraph) { ZordyxOverlaysScreen() },
+        BuiltinPage("zordyx_legit_mods", "Legit mods", "check-circle", PageGroup.ZORDYX, 300, ZordyxLegitModsGraph) {
+            ZordyxLegitModsScreen()
+        },
+        BuiltinPage("zordyx_friends", "Friends", "star", PageGroup.ZORDYX, 500, ZordyxFriendsGraph) { ZordyxFriendsScreen() },
+        BuiltinPage("zordyx_macros", "Macros", "keyboard", PageGroup.ZORDYX, 600, ZordyxMacrosGraph) { ZordyxMacrosScreen() },
+        BuiltinPage("zordyx_online", "Online", "cloud", PageGroup.ZORDYX, 700, ZordyxOnlineGraph) { ZordyxOnlineScreen() },
+        BuiltinPage("zordyx_settings", "Global settings", "cog", PageGroup.ZORDYX, 800, ZordyxSettingsGraph) {
+            ZordyxSettingsScreen(SettingsSection.General)
+        },
         BuiltinPage("changelog", "Changelog", "refresh", PageGroup.ONECONFIG, 100, ChangeLogGraph) { Changelog() },
         BuiltinPage("credits", "Credits", "star", PageGroup.ONECONFIG, 200, CreditsGraph) { Credits() },
     )

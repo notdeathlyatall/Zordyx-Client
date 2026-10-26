@@ -1,17 +1,15 @@
 # Security Policy
 
-Please be sure to read our [official security disclosure](https://polyfrost.org/legal/security), as the following inline docs will be removed soon.
+Zordyx Client is a fork of [OneConfig](https://github.com/Polyfrost/OneConfig) by Polyfrost. For the upstream project's policy, see [Polyfrost's security disclosure page](https://polyfrost.org/legal/security).
 
 ## Supported Versions
 
-The only supported version is the latest from the master and develop branch. All other versions will NOT be supported.
+The only supported version is the latest from the `v1` branch. All other versions will NOT be supported.
 
 ## Reporting a Vulnerability
 
-**Do not submit an issue or pull request**: this might reveal the vulnerability.
+**Do not submit a public issue or pull request**: this might reveal the vulnerability.
 
-Instead, you should contact Polyfrost directly at [our discord server](https://polyfrost.org/discord), in a ticket.
+Instead, report it privately through [GitHub Security Advisories](https://github.com/notdeathlyatall/Zordyx-Client/security/advisories/new).
 
 We will deal with the vulnerability privately and submit a patch as soon as possible.
-
-You can also submit your vulnerability report to [huntr.dev](https://huntr.dev/bounties/disclose/?utm_campaign=polyfrost%2Foneconfig&utm_medium=social&utm_source=github&target=https%3A%2F%2Fgithub.com%2Fpolyfrost%2Foneconfig) and see if you can get a bounty reward.

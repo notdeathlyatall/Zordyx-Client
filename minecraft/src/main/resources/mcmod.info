@@ -2,12 +2,13 @@
   {
     "modid": "oneconfigv1",
     "name": "${mod_name}",
-    "description": "OneConfig",
+    "description": "Zordyx Client",
     "version": "${mod_version}",
     "mcversion": "${mc_version}",
     "url": "",
     "updateUrl": "",
     "authorList": [
+      "Zordyx",
       "Polyfrost"
     ],
     "credits": "",

@@ -134,7 +134,7 @@ object ProfileKeybinds {
             } finally {
                 switching.set(false)
             }
-        }, "OneConfig Profile Keybind")
+        }, "Zordyx Client Profile Keybind")
         thread.isDaemon = true
         thread.start()
     }

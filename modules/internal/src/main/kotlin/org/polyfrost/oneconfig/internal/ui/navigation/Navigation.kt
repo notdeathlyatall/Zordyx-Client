@@ -8,6 +8,7 @@ import org.polyfrost.oneconfig.internal.ui.navigation.graph.modsGraph
 import org.polyfrost.oneconfig.internal.ui.navigation.graph.preferencesGraph
 import org.polyfrost.oneconfig.internal.ui.navigation.graph.profilesGraph
 import org.polyfrost.oneconfig.internal.ui.navigation.graph.themesGraph
+import org.polyfrost.oneconfig.internal.ui.navigation.graph.zordyxGraph
 
 fun NavGraphBuilder.navigation() {
     modsGraph()
@@ -17,5 +18,6 @@ fun NavGraphBuilder.navigation() {
     preferencesGraph()
     changeLogGraph()
     creditsGraph()
+    zordyxGraph()
     pageDestinations()
 }

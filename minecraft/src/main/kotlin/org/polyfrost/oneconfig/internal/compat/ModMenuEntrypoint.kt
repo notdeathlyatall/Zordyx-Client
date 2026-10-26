@@ -35,7 +35,7 @@ internal object ModMenuEntrypoint : ModMenuApi {
 
     private fun reportUnlinkable(e: LinkageError) {
         LOGGER.error(
-            "OneConfig's screen class could not be linked, so its ModMenu entries are unavailable. " +
+            "Zordyx Client's screen class could not be linked, so its ModMenu entries are unavailable. " +
                 "This is usually another mod's mixin failing to apply to OneConfigUIScreen - check the " +
                 "log above for the Mixin error naming the responsible mod.",
             e,

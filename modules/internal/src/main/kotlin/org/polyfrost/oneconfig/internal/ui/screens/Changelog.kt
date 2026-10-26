@@ -83,11 +83,11 @@ private data class ChangelogSectionImpl(
 ) : ChangelogSection
 
 private val changelogs = ChangelogImpl(listOf(
-    ChangelogSectionImpl("header", "ONECONFIG UPDATE 0.2 - \"UI Tweaks\"", """
-        Hey everyone, it's been a bit since the last OneConfig update, which is in open beta if you haven't seen all the memes. Nevertheless, here we are announcing the very first update to OneConfig. It's a smaller one, but contains a lot of the features you all have been asking for. If you haven't already, @shoddyy made a great video explaining how to download OneConfig, find it here https://youtu.be/dfv_1s70wGI
+    ChangelogSectionImpl("header", "ZORDYX CLIENT UPDATE 0.2 - \"UI Tweaks\"", """
+        Hey everyone, it's been a bit since the last Zordyx Client update, which is in open beta if you haven't seen all the memes. Nevertheless, here we are announcing the very first update to Zordyx Client. It's a smaller one, but contains a lot of the features you all have been asking for. If you haven't already, @shoddyy made a great video explaining how to download Zordyx Client, find it here https://youtu.be/dfv_1s70wGI
 
         **What's new?**
-        - OneConfig now supports your Hypixel API Keys! You can set and sync your key across all supported mods.
+        - Zordyx Client now supports your Hypixel API Keys! You can set and sync your key across all supported mods.
         - Sliders now have interaction states, and stepped sliders now only show their steps when hovered or pressed.
         - All searches now utilize fuzzy searching to combat spelling mistakes and misclicks
         - Options now display what's disabling them when hovered over
@@ -109,16 +109,16 @@ private val changelogs = ChangelogImpl(listOf(
 
         ### New Animations
         - Added a new opening / closing animation with both **Subtle** and **Full** modes.
-        - Many animations can now be configured in the **OneConfig settings**.
+        - Many animations can now be configured in the **Zordyx Client settings**.
     """.trimIndent(),
         "refactoring",
         "Mar 10th, 2026"
     ),
-    ChangelogSectionImpl("header", "ONECONFIG UPDATE 0.2 - \"UI Tweaks\"", """
-        Hey everyone, it's been a bit since the last OneConfig update, which is in open beta if you haven't seen all the memes. Nevertheless, here we are announcing the very first update to OneConfig. It's a smaller one, but contains a lot of the features you all have been asking for. If you haven't already, @shoddyy made a great video explaining how to download OneConfig, find it here https://youtu.be/dfv_1s70wGI
+    ChangelogSectionImpl("header", "ZORDYX CLIENT UPDATE 0.2 - \"UI Tweaks\"", """
+        Hey everyone, it's been a bit since the last Zordyx Client update, which is in open beta if you haven't seen all the memes. Nevertheless, here we are announcing the very first update to Zordyx Client. It's a smaller one, but contains a lot of the features you all have been asking for. If you haven't already, @shoddyy made a great video explaining how to download Zordyx Client, find it here https://youtu.be/dfv_1s70wGI
 
         **What's new?**
-        - OneConfig now supports your Hypixel API Keys! You can set and sync your key across all supported mods.
+        - Zordyx Client now supports your Hypixel API Keys! You can set and sync your key across all supported mods.
         - Sliders now have interaction states, and stepped sliders now only show their steps when hovered or pressed.
         - All searches now utilize fuzzy searching to combat spelling mistakes and misclicks
         - Options now display what's disabling them when hovered over
@@ -133,11 +133,11 @@ private val changelogs = ChangelogImpl(listOf(
         "refactoring",
         "Mar 10th, 2026"
     ),
-    ChangelogSectionImpl(null, "ONECONFIG UPDATE 0.2 - \"UI Tweaks\"", """
-        Hey everyone, it's been a bit since the last OneConfig update, which is in open beta if you haven't seen all the memes. Nevertheless, here we are announcing the very first update to OneConfig. It's a smaller one, but contains a lot of the features you all have been asking for. If you haven't already, @shoddyy made a great video explaining how to download OneConfig, find it here https://youtu.be/dfv_1s70wGI
+    ChangelogSectionImpl(null, "ZORDYX CLIENT UPDATE 0.2 - \"UI Tweaks\"", """
+        Hey everyone, it's been a bit since the last Zordyx Client update, which is in open beta if you haven't seen all the memes. Nevertheless, here we are announcing the very first update to Zordyx Client. It's a smaller one, but contains a lot of the features you all have been asking for. If you haven't already, @shoddyy made a great video explaining how to download Zordyx Client, find it here https://youtu.be/dfv_1s70wGI
 
         **What's new?**
-        - OneConfig now supports your Hypixel API Keys! You can set and sync your key across all supported mods.
+        - Zordyx Client now supports your Hypixel API Keys! You can set and sync your key across all supported mods.
         - Sliders now have interaction states, and stepped sliders now only show their steps when hovered or pressed.
         - All searches now utilize fuzzy searching to combat spelling mistakes and misclicks
         - Options now display what's disabling them when hovered over

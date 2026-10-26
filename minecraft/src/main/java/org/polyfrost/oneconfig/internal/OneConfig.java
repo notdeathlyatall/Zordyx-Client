@@ -125,7 +125,7 @@ public class OneConfig
                         .executes((ctx) -> {
                             ctx.getSource()
                                     .sendFeedback(Component.literal(
-                                            "Deleted OneConfig UI. Please make a report if you were having issues!"));
+                                            "Deleted Zordyx Client UI. Please make a report if you were having issues!"));
                             return 1;
                         })
                 )
@@ -164,7 +164,7 @@ public class OneConfig
                 //~ if >= 26.2 'gui.getChat' -> 'gui.hud.getChat'
                 Minecraft.getInstance().gui.hud.getChat()
                         //~ if >= 26.1 'addMessage' -> 'addClientSystemMessage'
-                        .addClientSystemMessage(Component.literal("Failed to open OneConfig UI: " + t.getMessage() + ". Please report this!")
+                        .addClientSystemMessage(Component.literal("Failed to open Zordyx Client UI: " + t.getMessage() + ". Please report this!")
                                 .withStyle(
                                         ChatFormatting.RED));
                 throw t;
@@ -462,7 +462,7 @@ public class OneConfig
         KaleidoCompat.enable();
 
         initialized = true;
-        LOGGER.info("OneConfig initialization took {}ms", (System.nanoTime() - t1) / 1_000_000.0);
+        LOGGER.info("Zordyx Client initialization took {}ms", (System.nanoTime() - t1) / 1_000_000.0);
     }
 
 }

@@ -73,7 +73,7 @@ public final class OneConfigSoundPackSource implements RepositorySource {
 
         PackLocationInfo location = new PackLocationInfo(
                 PACK_ID,
-                Component.literal("OneConfig Sounds"),
+                Component.literal("Zordyx Client Sounds"),
                 PackSource.BUILT_IN,
                 Optional.empty()
         );
@@ -122,7 +122,7 @@ public final class OneConfigSoundPackSource implements RepositorySource {
                     () -> new DirectoryResourcePack(PACK_ROOT) {
                         @Override
                         public String getName() {
-                            return "OneConfig Sounds";
+                            return "Zordyx Client Sounds";
                         }
                     }
             );

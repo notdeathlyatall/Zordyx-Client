@@ -1,5 +1,9 @@
+## Unreleased
+- Rebranded the project as Zordyx Client
+- New Zordyx interface: expandable sidebar with Modules, Overlays, Legit mods, Profiles, Friends, Macros, Online and Global settings, plus module lists with search, filters and visual toggles (interface preview, no module behaviour yet)
+
 ## 1.5.0
-- Add community translations for OneConfig and many other mods
+- Add community translations for Zordyx Client and many other mods
 - Sodium is now translated too, using the Translations for Sodium resource pack
 - Translators are now credited in the credits screen
 - The accent color can now be a gradient. Turn on "Gradient" in the accent color picker and pick a second color
@@ -7,10 +11,10 @@
 - Add a sort control to the Mods page. Keep your own drag order, or sort mods A to Z
 - Add a "Full Shadow" option for text HUDs, which outlines the text on every side instead of using a drop shadow
 - Add a guided tour of the HUD editor. Replay it any time by right-clicking an empty spot and choosing "Editor Tour"
-- Add a Search keybind that jumps to the search bar in the OneConfig menu and HUD editor. In the HUD editor it searches the selected HUD's settings, or the HUD library when nothing is selected
+- Add a Search keybind that jumps to the search bar in the Zordyx Client menu and HUD editor. In the HUD editor it searches the selected HUD's settings, or the HUD library when nothing is selected
 - Move the "Instant search" setting into the Search category
 - Add "Select all" and "Deselect all" to dropdowns where you can pick several options
-- Better Screens, Render Tweaks and Shake Tweaks now provide their own OneConfig on/off toggle, so OneConfig no longer adds one for them
+- Better Screens, Render Tweaks and Shake Tweaks now provide their own Zordyx Client on/off toggle, so Zordyx Client no longer adds one for them
 - Fix the on/off toggle not turning off some mods
 - Fix one broken line in your Minecraft options resetting all of your settings
 - Fix copy and paste not working on 1.8.9 on Apple Silicon Macs, and copying images on Linux with Wayland
@@ -21,10 +25,10 @@
 - Fix the "HUD is locked" notice appearing on every key press while editing a locked HUD
 - Fix a warning being logged for every chat message with transparent colors on newer versions
 - Fix notification icons, the HUD editor search bar, item pickers and the mod card on/off indicator not following your theme
-- Fix OneConfig's menus failing to show text on Windows when the game is installed in a deeply nested folder
+- Fix Zordyx Client's menus failing to show text on Windows when the game is installed in a deeply nested folder
 
 ### For mod developers
-- Add an experimental public UI API (`api.ui.v1`) for pages, themes, components, search and keybinds, so mods no longer need OneConfig's internals
+- Add an experimental public UI API (`api.ui.v1`) for pages, themes, components, search and keybinds, so mods no longer need Zordyx Client's internals
 - Add an API for adding your own sort modes to the Mods page
 - Add `SliderBounds` so sliders can change their minimum and maximum at runtime
 - Add opt-in gradient colors with `@Color(gradient = true)`

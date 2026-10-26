@@ -1,6 +1,6 @@
-# OneConfig Utilities
+# Zordyx Client Utilities
 
-This module contains a variety of utilities used in OneConfig.
+This module contains a variety of utilities used in Zordyx Client.
 This is where the `Platform` classes are located, providing access to
 Minecraft methods which are abstracted from any loader or version.
 

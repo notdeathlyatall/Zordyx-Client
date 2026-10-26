@@ -1,8 +1,8 @@
-# OneConfig Config Implementation
+# Zordyx Client Config Implementation
 
 `dependsOn("utils", "config", "polyui")`
 
-This module contains the default implementation of the configuration system used in OneConfig.
+This module contains the default implementation of the configuration system used in Zordyx Client.
 
 > See the `config` module for more information on how the configuration system works internally.
 

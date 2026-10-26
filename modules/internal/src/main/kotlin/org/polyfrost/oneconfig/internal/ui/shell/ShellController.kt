@@ -19,7 +19,7 @@ import androidx.navigation.NavHostController
 import org.apache.logging.log4j.LogManager
 import org.polyfrost.oneconfig.internal.OneConfigConfig
 import org.polyfrost.oneconfig.internal.ui.navigation.graph.ModConfigRoute
-import org.polyfrost.oneconfig.internal.ui.navigation.graph.ModsGraph
+import org.polyfrost.oneconfig.internal.ui.navigation.graph.ZordyxModulesGraph
 
 private val LOGGER = LogManager.getLogger("OneConfig/UI")
 
@@ -289,7 +289,7 @@ class ShellNavigation internal constructor(
     var lastRoute: Any? = null
         private set
 
-    private var currentEntry = Entry(ModsGraph)
+    private var currentEntry = Entry(ZordyxModulesGraph)
 
     val currentRoute: Any get() = currentEntry.route
 
@@ -323,7 +323,7 @@ class ShellNavigation internal constructor(
     fun reset() {
         backStack.clear()
         forwardStack.clear()
-        currentEntry = Entry(ModsGraph)
+        currentEntry = Entry(ZordyxModulesGraph)
         search.forgetEntries()
         updateArrows()
     }

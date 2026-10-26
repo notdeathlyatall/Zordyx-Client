@@ -236,7 +236,7 @@ fun Designer(hud: Hud?, query: String) {
             contentAlignment = Alignment.Center
         ) {
             val previewText = run {
-                val base = "Hello, OneConfig!"
+                val base = "Hello, Zordyx Client!"
                 val raw = if ((hud as? TextHud)?.brackets == true) "[$base]" else base
                 when (caseType.ordinal) {
                     1 -> raw.uppercase()

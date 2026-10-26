@@ -1,15 +1,15 @@
-# OneConfig Config
+# Zordyx Client Config
 
 `dependsOn("utils")`
 
-This module contains the main attraction - the configuration system used in OneConfig.
+This module contains the main attraction - the configuration system used in Zordyx Client.
 It is based on a simple tree based structure where each configuration option is a node in the tree.
 
 Configs support arbitrary data types for values, callbacks, can contain metadata, and conditions for displaying them.
 
 > To see the default implementation of the config system, see the `config-impl` module - which utilizes files for storage, and uses `PolyUI` to show the trees to the end user.
 
-As with the rest of OneConfig, one of the main features of this is the decoupling from internal structure and the creation
+As with the rest of Zordyx Client, one of the main features of this is the decoupling from internal structure and the creation
 of the config - so the config system is split into three components:
 
 - `api.config.collect` - the collection of config options from arbitrary objects

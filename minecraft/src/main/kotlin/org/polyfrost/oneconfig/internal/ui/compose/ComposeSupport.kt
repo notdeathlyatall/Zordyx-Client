@@ -24,7 +24,7 @@ object ComposeSupport {
             return
         }
         recordedFailure = fatal
-        LOG.error("Compose is unavailable on this system; the OneConfig UI has been disabled.", error)
+        LOG.error("Compose is unavailable on this system; the Zordyx Client UI has been disabled.", error)
     }
 
     private fun describe(error: Throwable): String? {
@@ -34,11 +34,11 @@ object ComposeSupport {
             val message = e.message.orEmpty()
             when {
                 e is UnsatisfiedLinkError || "UnsatisfiedLinkError" in message ->
-                    return "OneConfig's UI can't start: the Skia native library failed to load for " +
-                        "$osLabel. This platform isn't supported by OneConfig's renderer."
+                    return "Zordyx Client's UI can't start: the Skia native library failed to load for " +
+                        "$osLabel. This platform isn't supported by Zordyx Client's renderer."
 
                 "java.awt" in message || "Toolkit" in message || "libawt" in message ->
-                    return "OneConfig's UI can't start: this Java runtime has no working AWT support " +
+                    return "Zordyx Client's UI can't start: this Java runtime has no working AWT support " +
                         "(java.awt.Toolkit failed to initialize). Try a full JDK/JRE rather than a " +
                         "headless or trimmed-down one."
             }
@@ -52,10 +52,10 @@ object ComposeSupport {
 
     private fun probe(): String? {
         if (System.getProperty(DISABLE_PROPERTY) != null) {
-            return "OneConfig's UI is disabled by the -D$DISABLE_PROPERTY JVM flag."
+            return "Zordyx Client's UI is disabled by the -D$DISABLE_PROPERTY JVM flag."
         }
         if (!classExists("java.awt.Toolkit") || !classExists("org.jetbrains.skiko.Library")) {
-            return "OneConfig's UI can't start on $osLabel: a required library (AWT or Skiko) is " +
+            return "Zordyx Client's UI can't start on $osLabel: a required library (AWT or Skiko) is " +
                 "missing from this Java runtime. Try a full JDK/JRE."
         }
         return awtInitFailure()
@@ -66,8 +66,8 @@ object ComposeSupport {
         Class.forName("androidx.compose.ui.input.pointer.PointerIcon", true, ComposeSupport::class.java.classLoader)
         null
     } catch (t: Throwable) {
-        LOG.error("AWT failed to initialize on this runtime; the OneConfig UI has been disabled.", t)
-        "OneConfig's UI can't start on $osLabel: this Java runtime has no working AWT support " +
+        LOG.error("AWT failed to initialize on this runtime; the Zordyx Client UI has been disabled.", t)
+        "Zordyx Client's UI can't start on $osLabel: this Java runtime has no working AWT support " +
             "(java.awt.Toolkit failed to initialize). Try a full JDK/JRE rather than a headless " +
             "or trimmed-down one."
     }

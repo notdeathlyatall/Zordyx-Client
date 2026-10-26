@@ -1,7 +1,7 @@
-# OneConfig Mod Toggles
+# Zordyx Client Mod Toggles
 
-A single interface that lets a mod put its own on/off switch on its card in OneConfig, without depending on
-OneConfig at runtime.
+A single interface that lets a mod put its own on/off switch on its card in Zordyx Client, without depending on
+Zordyx Client at runtime.
 
 ```kotlin
 dependencies {
@@ -30,5 +30,5 @@ public class MyModToggle implements ModToggle {
 }
 ```
 
-The class is only loaded when OneConfig asks for the entrypoint, so nothing breaks when OneConfig is not installed.
+The class is only loaded when Zordyx Client asks for the entrypoint, so nothing breaks when Zordyx Client is not installed.
 Keep it out of classes the mod loads on its own.

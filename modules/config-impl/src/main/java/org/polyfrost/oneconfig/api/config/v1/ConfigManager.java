@@ -348,7 +348,7 @@ public final class ConfigManager {
                     ? " (" + reason + ")."
                     : ". This is usually a full disk or a config folder OneConfig cannot write to.";
             Notifications.error(name + ": could not save config",
-                    "OneConfig could not save this config" + tail
+                    "Zordyx Client could not save this config" + tail
                             + " Your settings still work this session but will not be kept;"
                             + " the log has the exact cause.");
         } catch (Throwable t) {

@@ -29,7 +29,7 @@ object MinecraftKeybindRegistrar {
         if (!force && scannedTrees.containsKey(tree)) return
         scannedTrees[tree] = true
         installRebindListener()
-        val category = "${tree.localizedTitle()} (OneConfig)"
+        val category = "${tree.localizedTitle()} (Zordyx Client)"
         walk(tree, category)
     }
 

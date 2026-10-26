@@ -63,7 +63,7 @@ public final class MinecraftKeybindBridgeImpl implements MinecraftKeybindBridge 
     private final Set<String> usedPaths = new HashSet<>();
 
     private KeyMapping.Category categoryFor(String name) {
-        String label = (name == null || name.isBlank()) ? "OneConfig" : name;
+        String label = (name == null || name.isBlank()) ? "Zordyx Client" : name;
         return categories.computeIfAbsent(label, n -> {
             //~if >= 1.21.11 'ResourceLocation' -> 'Identifier'
             Identifier id = Identifier.fromNamespaceAndPath("oneconfig", uniquePath(n));
@@ -87,7 +87,7 @@ public final class MinecraftKeybindBridgeImpl implements MinecraftKeybindBridge 
     }
     //?} else {
     /*private String categoryFor(String name) {
-        String label = (name == null || name.isBlank()) ? "OneConfig" : name;
+        String label = (name == null || name.isBlank()) ? "Zordyx Client" : name;
         //? if > 1.8.9 {
         Map<String, Integer> order = KeyMappingCategoryAccessor.oneconfig$categorySortOrder();
         if (!order.containsKey(label)) order.put(label, order.size());

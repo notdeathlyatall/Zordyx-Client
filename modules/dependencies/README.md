@@ -1,6 +1,6 @@
-# OneConfig dependencies
+# Zordyx Client dependencies
 
-This directory contains the dependencies for the OneConfig project (well, not really, but we'll get to that later).
+This directory contains the dependencies for the Zordyx Client project (well, not really, but we'll get to that later).
 
 ## TLDR:
 Dealing with mod loaders suck, but we figured it out. Go to the `buildSrc`
@@ -15,7 +15,7 @@ dependency we use. However, each mod loader we use has a different way
 of handling dependencies, with varying levels of complexity:
 
 - **On Legacy Forge:** There is no built-in dependency system. If we have a
-  newer version of a dependency, we depend on a hack in the OneConfig
+  newer version of a dependency, we depend on a hack in the Zordyx Client
   loader (which is required for Legacy Forge) known as "Relaunch."
   Essential also uses the same system, but we have systems in place to
   ensure both work together and always load the correct version of our
@@ -40,7 +40,7 @@ level of complexity, and we require the `PolyMixin` library for
 ## So... what do we do?
 
 - **On Legacy Forge:** We put all of our dependencies packed into separate
-  JAR into one singular JAR file. Once the OneConfig loader downloads the
+  JAR into one singular JAR file. Once the Zordyx Client loader downloads the
   dependency JAR, it will extract the JAR and load / handle each individual
   JAR / dependency from there.
 - **On modern Forge without JiJ:** We shade all of our dependencies into

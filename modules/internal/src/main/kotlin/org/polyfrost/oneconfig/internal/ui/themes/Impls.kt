@@ -74,6 +74,56 @@ private val MinecraftIconOverrides = mapOf(
     "x-circle" to "/assets/oneconfig/ico/minecraft/x-circle.svg",
 )
 
+/**
+ * The Zordyx look: near-black surfaces, neutral borders and one restrained teal accent.
+ *
+ * Surfaces stay opaque and low contrast so long module lists read cleanly; the accent is only used
+ * for selection, enabled switches and focus.
+ */
+val ZordyxDark = UITheme(
+    "zordyx-dark", "Zordyx Dark",
+
+    Color(0xFF0A0E11),
+    Color(0xFF070A0C),
+    Color(0xFF121A1E),
+    Color(0xFF0F1519),
+    Color(0xFF141C21),
+    Color(0xFF101619),
+
+    Color(0x1FFFFFFF),
+    Color(0xFFE9F1F2),
+    Color(0xFF828D93),
+    Color(0xFFFFFFFF),
+
+    Color(0xFF000000),
+    Color(0xFFF3F7F8),
+    Color(0xFFE8B84B),
+
+    true,
+
+    RoundedCornerShape(Radii.LG),
+    RoundedCornerShape(Radii.SM),
+    RoundedCornerShape(Radii.MD),
+    RoundedCornerShape(Radii.XS),
+    RoundedCornerShape(Radii.SM),
+    RoundedCornerShape(Radii.MD),
+    CircleShape,
+
+    UIBranding("assets/oneconfig/brand/oneconfig.svg"),
+    UITypography(
+        family = FontFamily(
+            Font("assets/oneconfig/fonts/Poppins/Poppins-Black.ttf", FontWeight.Black),
+            Font("assets/oneconfig/fonts/Poppins/Poppins-ExtraBold.ttf", FontWeight.ExtraBold),
+            Font("assets/oneconfig/fonts/Poppins/Poppins-ExtraLight.ttf", FontWeight.ExtraLight),
+            Font("assets/oneconfig/fonts/Poppins/Poppins-Regular.ttf", FontWeight.Normal),
+            Font("assets/oneconfig/fonts/Poppins/Poppins-Light.ttf", FontWeight.Light),
+            Font("assets/oneconfig/fonts/Poppins/Poppins-Medium.ttf", FontWeight.Medium),
+            Font("assets/oneconfig/fonts/Poppins/Poppins-SemiBold.ttf", FontWeight.SemiBold),
+            Font("assets/oneconfig/fonts/Poppins/Poppins-Thin.ttf", FontWeight.Thin)
+        )
+    )
+)
+
 val PolyGlassDark = UITheme(
     "polyglass-dark", "PolyGlass Dark",
 

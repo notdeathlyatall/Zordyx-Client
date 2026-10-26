@@ -18,7 +18,7 @@ internal const val HUD_MOD_CARD_TYPE_ID = "oneconfig.huds"
 
 private object BuiltinHudConfigData : ConfigData {
     override val id = BUILTIN_HUD_CONFIG_ID
-    override val title = "OneConfig"
+    override val title = "Zordyx Client"
     override val icon = BUILTIN_HUD_ICON
     override val source = ConfigSource.OC
     override val category = Config.Category.OTHER

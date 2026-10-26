@@ -110,10 +110,10 @@ object SkiaCtx {
     fun unavailableReason(): String? {
         if (isReady) return null
         return if (isVulkanModInstalled) {
-            "OneConfig's UI can't render while VulkanMod is installed, because VulkanMod replaces " +
-                "Minecraft's OpenGL renderer. Remove VulkanMod to use the OneConfig UI."
+            "Zordyx Client's UI can't render while VulkanMod is installed, because VulkanMod replaces " +
+                "Minecraft's OpenGL renderer. Remove VulkanMod to use the Zordyx Client UI."
         } else {
-            "OneConfig's UI failed to initialize and can't be opened. Please check your logs and report this."
+            "Zordyx Client's UI failed to initialize and can't be opened. Please check your logs and report this."
         }
     }
 
@@ -1100,7 +1100,7 @@ object SkiaCtx {
             allocReported = true
             runCatching {
                 Platform.screen().showMessage(
-                    "OneConfig couldn't allocate GPU memory for its UI (${w}x$h). " +
+                    "Zordyx Client couldn't allocate GPU memory for its UI (${w}x$h). " +
                         "Lower your resolution or render scale, or close other GPU-heavy programs."
                 )
             }

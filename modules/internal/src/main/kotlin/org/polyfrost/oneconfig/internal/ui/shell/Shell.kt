@@ -56,8 +56,8 @@ import org.jetbrains.skia.Surface
 import org.polyfrost.oneconfig.internal.OneConfigConfig
 import org.polyfrost.oneconfig.internal.ui.components.Header
 import org.polyfrost.oneconfig.internal.ui.components.Sidebar
-import org.polyfrost.oneconfig.internal.ui.navigation.graph.ModsGraph
 import org.polyfrost.oneconfig.internal.ui.navigation.graph.ModsRoute
+import org.polyfrost.oneconfig.internal.ui.navigation.graph.ZordyxModulesGraph
 import org.polyfrost.oneconfig.internal.ui.navigation.navigation
 import org.polyfrost.oneconfig.internal.ui.screens.SearchResultsScreen
 import org.polyfrost.oneconfig.internal.ui.themes.Accent
@@ -231,7 +231,7 @@ fun Shell(
                         NavHost(
                             modifier = Modifier.fillMaxSize(),
                             navController = LocalShellNavController.current,
-                            startDestination = ModsGraph,
+                            startDestination = ZordyxModulesGraph,
 
                             enterTransition = { if (transitions.animates()) enterSlide() + fadeIn(tween(pageMs())) else EnterTransition.None },
                             exitTransition = { if (transitions.animates()) exitSlide() + fadeOut(tween(pageMs())) else ExitTransition.None },

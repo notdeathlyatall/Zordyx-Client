@@ -1,8 +1,8 @@
-# OneConfig HUD
+# Zordyx Client HUD
 
 `dependsOn("events", "utils", "ui", "config", "config-impl")`
 
-This module contains the HUD system used in OneConfig. It is the most complex module in OneConfig,
+This module contains the HUD system used in Zordyx Client. It is the most complex module in Zordyx Client,
 and again using `PolyUI` for its rendering.
 
 The system is designed around a series of `Hud` elements, which are wrapped PolyUI components that can
@@ -15,7 +15,7 @@ which can be displayed to the end user in the same way as the standard config sy
 the developer can have configuration for their HUD element separate from the rest of their mod, or just
 be a HUD providing mod.
 
-The HUD system is uses its own UI which is entirely separate from the standard OneConfig window, and so
+The HUD system is uses its own UI which is entirely separate from the standard Zordyx Client window, and so
 the HUD system can be packaged individually.
 
 For legacy compatability, a `LegacyHud` system is provided, which allows for Minecraft rendering methods
