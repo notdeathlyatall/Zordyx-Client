@@ -10,9 +10,7 @@ enum class UiSoundTheme {
     companion object {
         fun current(): UiSoundTheme = of(ThemeRegistry.activeTheme)
 
-        fun of(theme: UITheme?): UiSoundTheme {
-            theme ?: return MODERN
-            return if (theme.previewImage.startsWith("minecraft-")) MINECRAFT else MODERN
-        }
+        fun of(theme: UITheme?): UiSoundTheme =
+            if (theme?.isMinecraftStyle == true) MINECRAFT else MODERN
     }
 }

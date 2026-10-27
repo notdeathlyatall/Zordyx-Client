@@ -33,6 +33,7 @@ import net.minecraft.server.Bootstrap;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.polyfrost.oneconfig.internal.ZordyxClientInfo;
 import org.polyfrost.oneconfig.test.mixin.MixinAuditErrorCollector.Failure;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.Mixins;
@@ -51,9 +52,9 @@ import net.minecraft.SharedConstants;
 
 class MixinAuditTest {
 
-    private static final String MOD_ID = "oneconfigv1";
+    private static final String MOD_ID = ZordyxClientInfo.PLATFORM_MOD_ID;
 
-    private static final String OWN_CONFIG_PREFIX = "mixins.oneconfigv1";
+    private static final String OWN_CONFIG_PREFIX = "mixins.zordyx_client";
 
     private static final String CLASSLOAD_PHASE = "<classload>";
 

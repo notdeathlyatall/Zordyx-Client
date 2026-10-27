@@ -7,6 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import org.apache.logging.log4j.LogManager
 import org.polyfrost.oneconfig.api.config.v1.ConfigManager
+import org.polyfrost.oneconfig.internal.ZordyxClientInfo
 import org.polyfrost.oneconfig.api.config.v1.Tree
 import org.polyfrost.oneconfig.api.platform.v1.Platform
 import org.polyfrost.oneconfig.internal.ui.components.asRenderText
@@ -20,8 +21,11 @@ object ConfigRegistry {
     private val logger = LogManager.getLogger("OneConfig/ConfigRegistry")
 
     private val hiddenModCardIds = setOf(
-        "oneconfig.json",
-        "themes.json",
+        ZordyxClientInfo.PREFERENCES_ID,
+        ZordyxClientInfo.THEMES_ID,
+        // the ids these two files were stored under before this mod had a namespace of its own
+        ZordyxClientInfo.LEGACY_PREFERENCES_ID,
+        ZordyxClientInfo.LEGACY_THEMES_ID,
         "oneconfig.builtin", // built-in huds
         "minecraft",
         "resourcefulconfig",
@@ -48,8 +52,8 @@ object ConfigRegistry {
     )
 
     private val dedicatedScreenConfigIds = setOf(
-        "oneconfig.json",
-        "themes.json",
+        ZordyxClientInfo.PREFERENCES_ID,
+        ZordyxClientInfo.THEMES_ID,
     )
 
     private val hiddenSearchIds = hiddenModCardIds - dedicatedScreenConfigIds

@@ -140,7 +140,8 @@ afterEvaluate {
     (dependencies.add("include", hypixelFabricMod) as ExternalModuleDependency).isTransitive = false
 }
 
-base.archivesName.set("OneConfig-${project.name}")
+// the shipped artifact must be identifiable as Zordyx Client on its own, not as OneConfig
+base.archivesName.set("ZordyxClient-${project.name}")
 
 tasks.withType<ProcessResources>().configureEach {
     val range = if (versionedCatalog.versions.has("minecraft.range")) {
@@ -152,10 +153,10 @@ tasks.withType<ProcessResources>().configureEach {
     }
 
     val props = mapOf(
-        "mod_id" to (project.findProperty("mod.id") ?: "oneconfig"),
+        "mod_id" to (project.findProperty("mod.id") ?: "zordyx_client"),
         "mod_name" to (project.findProperty("mod.name") ?: "Zordyx Client"),
         "mod_version" to project.version,
-        "mod_description" to (project.findProperty("mod.description") ?: "OneConfig bootstrap loader."),
+        "mod_description" to (project.findProperty("mod.description") ?: "Zordyx Client bootstrap loader."),
         "mc_version" to range,
         "compose_version" to composeBundleVersion,
         "loader_version" to versionedCatalog.versions["loader"].requiredVersion,

@@ -6,11 +6,13 @@ import com.terraformersmc.modmenu.api.ModMenuApi
 import net.minecraft.client.gui.screens.Screen
 import org.apache.logging.log4j.LogManager
 import org.polyfrost.oneconfig.api.config.v1.ConfigManager
+import org.polyfrost.oneconfig.internal.ZordyxClientInfo
 import org.polyfrost.oneconfig.internal.ui.compose.impls.OneConfigUIScreen
 
 internal object ModMenuEntrypoint : ModMenuApi {
 
     override fun getModConfigScreenFactory(): ConfigScreenFactory<*> {
+        // the platform module is nested inside the bootstrap mod, so its Mod Menu page defers to the bootstrap one
         if (CompatLoader.hasMod(ROOT_MOD_ID)) return ConfigScreenFactory<Screen> { null }
         return try {
             ConfigScreenFactory { OneConfigUIScreen.open() }
@@ -44,11 +46,11 @@ internal object ModMenuEntrypoint : ModMenuApi {
 
     private val LOGGER = LogManager.getLogger("OneConfig/ModMenu")
 
-    internal const val ROOT_MOD_ID = "oneconfig"
+    /** This fork's own bootstrap mod id, the page Mod Menu shows its screens under. */
+    internal const val ROOT_MOD_ID = ZordyxClientInfo.MOD_ID
 
-    internal const val LEGACY_BOOTSTRAP_MOD_ID = "oneconfigbootstrap"
+    internal const val LEGACY_BOOTSTRAP_MOD_ID = ZordyxClientInfo.LEGACY_BOOTSTRAP_MOD_ID
 
-    internal const val PLATFORM_MOD_ID = "oneconfigv1"
-
+    internal const val PLATFORM_MOD_ID = ZordyxClientInfo.PLATFORM_MOD_ID
 }
 //? }

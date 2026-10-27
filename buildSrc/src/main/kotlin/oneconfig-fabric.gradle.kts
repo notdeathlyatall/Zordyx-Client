@@ -46,7 +46,7 @@ val sc = extensions.getByName<StonecutterBuildExtension>("stonecutter")
 val loom = extensions.getByName<LoomGradleExtensionAPI>("loom")
 loom.apply {
     accessWidenerPath = sc.process(
-        rootProject.file("minecraft/src/main/resources/oneconfigv1.classtweaker"),
+        rootProject.file("minecraft/src/main/resources/zordyx_client.classtweaker"),
         "build/processed.classtweaker",
     )
     runConfigs["client"].apply {

@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.polyfrost.oneconfig.internal.ZordyxClientInfo;
 
 public final class SkikoDataPath {
     private static final Logger LOGGER = LogManager.getLogger("OneConfig/Skiko");
@@ -20,8 +21,8 @@ public final class SkikoDataPath {
         if (applied) return;
         applied = true;
         if (System.getProperty("skiko.data.path") != null) return;
-        if (trySet(Paths.get("oneconfig", ".skiko").toAbsolutePath())
-                || trySet(Paths.get(System.getProperty("java.io.tmpdir", "."), "oneconfig-skiko"))) {
+        if (trySet(Paths.get(ZordyxClientInfo.DATA_DIR, ".skiko").toAbsolutePath())
+                || trySet(Paths.get(System.getProperty("java.io.tmpdir", "."), ZordyxClientInfo.DATA_DIR + "-skiko"))) {
             LOGGER.info("Redirected skiko data path to {}", System.getProperty("skiko.data.path"));
         } else {
             LOGGER.warn("Could not create a writable skiko data dir; leaving skiko default (~/.skiko)");

@@ -61,9 +61,10 @@ import org.polyfrost.oneconfig.internal.compat.CompatLoader;
 import org.polyfrost.oneconfig.internal.compat.ConfigEntrypoints;
 import org.polyfrost.oneconfig.internal.compat.KaleidoCompat;
 import org.polyfrost.oneconfig.internal.compat.toggle.ModGates;
+import org.polyfrost.oneconfig.internal.ZordyxClientInfo;
+import org.polyfrost.oneconfig.internal.ZordyxMigration;
 import org.polyfrost.oneconfig.internal.ui.api.ConfigRegistry;
 import org.polyfrost.oneconfig.internal.ui.api.ConfigSource;
-import org.polyfrost.oneconfig.internal.ui.api.ThirdPartyModCategories;
 import org.polyfrost.oneconfig.internal.ui.components.item.ItemCatalog;
 import org.polyfrost.oneconfig.internal.ui.compose.McFontService;
 import org.polyfrost.oneconfig.internal.ui.compose.SkiaCtx;
@@ -105,7 +106,7 @@ import org.polyfrost.oneconfig.internal.compat.WWaypointsCompat;
 //?}
 
 //? neoforge
-//@net.neoforged.fml.common.Mod("oneconfigv1")
+//@net.neoforged.fml.common.Mod(ZordyxClientInfo.PLATFORM_MOD_ID)
 public class OneConfig
         //? fabric || ornithe
         implements ClientModInitializer {
@@ -407,9 +408,13 @@ public class OneConfig
 
     private void init() {
         if (initialized) {
-            LOGGER.error("Attempted to initialize oneconfig twice! this will be ignored");
+            LOGGER.error("Attempted to initialize Zordyx Client twice! this will be ignored");
             return;
         }
+
+        // before anything reads a config: copies this mod's settings out of the locations it used to share with
+        // OneConfig without touching those files, so an upgrading user keeps their settings and OneConfig keeps its own
+        ZordyxMigration.run();
 
         SkikoDataPath.redirect();
 
@@ -437,13 +442,12 @@ public class OneConfig
         ModInfo self = Platform.compatibility()
                 .getMods()
                 .stream()
-                .filter(it -> "oneconfig".equals(it.getId()))
+                .filter(it -> ZordyxClientInfo.MOD_ID.equals(it.getId()))
                 .findFirst()
                 .orElse(null);
         String v = self == null ? "LOCAL" : self.getVersion();
-        LOGGER.info("Loading OneConfig v{}", v);
+        LOGGER.info("Loading Zordyx Client ({}) v{}", ZordyxClientInfo.MOD_ID, v);
         McFontService.INSTANCE.init();
-        ThirdPartyModCategories.INSTANCE.init();
         BuiltinPages.register();
         // force class-load so the hello/disconnect handlers are armed before joining any server
         HypixelUtils.isHypixel();

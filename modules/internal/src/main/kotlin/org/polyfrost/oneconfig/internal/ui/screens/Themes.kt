@@ -22,18 +22,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import org.polyfrost.oneconfig.internal.ZordyxClientInfo
 import org.polyfrost.oneconfig.internal.ui.api.ConfigRegistry
 import org.polyfrost.oneconfig.internal.ui.components.Text
 import org.polyfrost.oneconfig.internal.ui.components.rememberInteractionSource
+import org.polyfrost.oneconfig.internal.ui.components.rememberSvgResourcePainter
 import org.polyfrost.oneconfig.internal.ui.shell.PageGutter
 import org.polyfrost.oneconfig.internal.ui.themes.Accent
 import org.polyfrost.oneconfig.internal.ui.themes.LocalTheme
 import org.polyfrost.oneconfig.internal.ui.themes.ThemeRegistry
 import org.polyfrost.oneconfig.internal.ui.themes.UITheme
 
-const val THEMES_ID = "themes.json"
+const val THEMES_ID = ZordyxClientInfo.THEMES_ID
 
 @Composable
 fun Themes() {
@@ -87,11 +89,28 @@ private fun ThemeCard(theme: UITheme) {
         verticalArrangement = Arrangement.spacedBy(14.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Image(
-            painter = painterResource("/assets/oneconfig/images/${theme.previewImage}.svg"),
-            contentDescription = null,
-            modifier = Modifier.size(168.dp, 108.dp)
-        )
+        // a custom theme's preview comes from its own file and may be missing, so it falls back to a plain panel
+        // instead of failing to resolve a resource that is not in the jar
+        val preview = rememberSvgResourcePainter(theme.previewImage)
+        if (preview != null) {
+            Image(
+                painter = preview,
+                contentDescription = null,
+                modifier = Modifier.size(168.dp, 108.dp)
+            )
+        } else {
+            Box(
+                Modifier
+                    .size(168.dp, 108.dp)
+                    .background(
+                        LocalTheme.current.componentBackground,
+                        LocalTheme.current.checkBoxShape
+                    )
+            )
+        }
         Text(theme.name, color = LocalTheme.current.textColor)
+        theme.description?.let { description ->
+            Text(description, color = LocalTheme.current.textColorSecondary, fontSize = 12.sp)
+        }
     }
 }

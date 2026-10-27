@@ -15,7 +15,7 @@ oneconfig.filepicker.browse=Browse
 oneconfig.keybinds.reconding=Recording...
 
 oneconfig.mods.none=No mods installed!
-oneconfig.mods.none.desc=You don't have any compatible mods installed.\nInstall some to configure them here. Visit https://polyfrost.org/mods to get some!
+oneconfig.mods.none.desc=You don't have any compatible mods installed.\nInstall some to configure them here.
 
 oneconfig.beta=BETA
 oneconfig.soon=SOON

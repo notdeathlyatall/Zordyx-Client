@@ -33,6 +33,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.repository.RepositorySource;
+import org.polyfrost.oneconfig.internal.ZordyxClientInfo;
 
 //? if >= 26.3 {
 import java.util.stream.Stream;
@@ -59,7 +60,7 @@ import net.ornithemc.osl.resource.loader.impl.resource.pack.DirectoryResourcePac
 public final class OneConfigSoundPackSource implements RepositorySource {
     public static final OneConfigSoundPackSource INSTANCE = new OneConfigSoundPackSource();
 
-    public static final Path PACK_ROOT = Paths.get("oneconfig", "sounds");
+    public static final Path PACK_ROOT = Paths.get(ZordyxClientInfo.DATA_DIR, "sounds");
 
     private static final String PACK_ID = "oneconfig_sounds";
 

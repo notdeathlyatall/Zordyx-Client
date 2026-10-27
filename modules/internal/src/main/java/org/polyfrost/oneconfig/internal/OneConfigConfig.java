@@ -28,6 +28,14 @@ public class OneConfigConfig extends Config {
     private static final byte HUD_REDO_MODS = (byte) (HUD_ACTION_MODS | KeyModifiers.SHIFT);
 
     // the open action comes from the minecraft module via setOpenAction since it cannot be serialized
+    /**
+     * The key that opens the Zordyx Client menu.
+     * <p>
+     * Deliberately Right Control rather than the Right Shift upstream OneConfig opens on: both mods poll their own
+     * keybinds in the same game and each clears Minecraft keybinds that clash with its own, so a shared default made
+     * the two menus fight over the key and neither could be opened reliably. A distinct default lets both menus be
+     * opened independently, and the key stays configurable in Preferences.
+     */
     @Keybind(
         title = "oneconfig.preferences.keybind.title",
         titleTranslation = true,
@@ -37,7 +45,7 @@ public class OneConfigConfig extends Config {
         descriptionTranslation = true
     )
     public static OneConfigKeybind oneConfigKeybind =
-        new OneConfigKeybind(new int[] {KEYS.getKeyRightShift()}, null, KeyModifiers.NONE, 0L, pressed -> true);
+        new OneConfigKeybind(new int[] {KEYS.getKeyRightControl()}, null, KeyModifiers.NONE, 0L, pressed -> true);
 
     @Switch(
         title = "oneconfig.preferences.keybind_closes_gui.title",
@@ -654,7 +662,7 @@ public class OneConfigConfig extends Config {
         registeredHudRedoAltKeybind = new AtomicReference<>();
 
     public OneConfigConfig() {
-        super("oneconfig.json", "assets/oneconfig/brand/oneconfig-icon.svg", "Zordyx Client", Category.QOL);
+        super(ZordyxClientInfo.PREFERENCES_ID, "assets/oneconfig/brand/oneconfig-icon.svg", "Zordyx Client", Category.QOL);
         INSTANCE = this;
     }
 

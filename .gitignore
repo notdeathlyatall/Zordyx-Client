@@ -352,4 +352,7 @@ minecraft/versions/*/.fabric/
 minecraft/versions/*/logs/
 minecraft/versions/*/mods/
 minecraft/versions/*/config/
-minecraft/versions/*/oneconfig/
+minecraft/versions/*/zordyx_client/
+
+# runtime data the module test suites write next to their project
+modules/*/zordyx_client/

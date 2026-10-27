@@ -432,7 +432,7 @@ tasks.withType<ProcessResources>() {
         stonecutter.eval(stonecutter.current.version, "= 1.8.9")
     ) "JAVA_25" else "JAVA_21"
     this.inputs.property("mixin_compat", mixinCompat)
-    this.filesMatching("mixins.oneconfigv1*.json") {
+    this.filesMatching("mixins.zordyx_client*.json") {
         filter { line -> line.replace("\"JAVA_21\"", "\"$mixinCompat\"") }
     }
 }

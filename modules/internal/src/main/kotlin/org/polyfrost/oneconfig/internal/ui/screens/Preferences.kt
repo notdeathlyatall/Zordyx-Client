@@ -6,11 +6,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import org.polyfrost.oneconfig.internal.ZordyxClientInfo
 import org.polyfrost.oneconfig.internal.ui.api.ConfigRegistry
 import org.polyfrost.oneconfig.internal.ui.components.Text
 import org.polyfrost.oneconfig.internal.ui.themes.LocalTheme
 
-const val PREFERENCES_ID = "oneconfig.json"
+const val PREFERENCES_ID = ZordyxClientInfo.PREFERENCES_ID
 
 @Composable
 fun Preferences() {

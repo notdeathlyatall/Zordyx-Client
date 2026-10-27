@@ -17,8 +17,12 @@ import java.util.Locale
 import java.util.concurrent.TimeUnit
 import java.util.function.BiConsumer
 import java.util.function.Function
+import org.polyfrost.oneconfig.internal.ZordyxClientInfo
 
 object CommunityTranslations {
+    // NOTE: this is a Polyfrost-hosted content endpoint. It is kept because the translations it serves are a user
+    // feature rather than Polyfrost branding, and every failure path below falls back to the bundled language files.
+    // Point it at this fork's own distribution to drop the last Polyfrost dependency.
     private const val DISTRIBUTION_URL = "https://translations.r2.polyfrost.org/v1"
     private const val SOURCE_LANGUAGE = "en_us"
     private val MANIFEST_TTL = TimeUnit.HOURS.toMillis(6)
@@ -29,7 +33,7 @@ object CommunityTranslations {
     private val FORMAT_SPECIFIER = Regex("%(?:(\\d+)\\$)?[\\d.]*([A-Za-z%])")
     private val LANGUAGE_ALIASES = mapOf("nb_no" to "no_no")
 
-    private val cacheDir: Path = Paths.get("oneconfig", "translations")
+    private val cacheDir: Path = Paths.get(ZordyxClientInfo.DATA_DIR, "translations")
     private val manifestFile: Path = cacheDir.resolve("manifest.json")
     private val refreshLock = Any()
 

@@ -74,9 +74,17 @@ public final class ConfigManager {
     public static final Path PROFILES_DIR = Paths.get("profiles");
     static final Logger LOGGER = LogManager.getLogger("OneConfig/Config");
     private static final List<PropertyCollector> collectors = new ArrayList<>(1);
-    private static final ConfigManager internal = new ConfigManager(Paths.get("oneconfig"), NightConfigSerializer.ALL);
+    /**
+     * The directory this mod keeps its own files in, relative to the game directory.
+     * <p>
+     * It used to be {@code oneconfig}, which is upstream OneConfig's own directory: both mods writing there meant
+     * one mod's preferences, profiles and keybind state could overwrite the other's. Must stay in sync with
+     * {@code org.polyfrost.oneconfig.internal.ZordyxClientInfo#DATA_DIR}, as this module cannot depend on it.
+     */
+    static final String DATA_DIR = "zordyx_client";
+    private static final ConfigManager internal = new ConfigManager(Paths.get(DATA_DIR), NightConfigSerializer.ALL);
     private static final ConfigManager core = new ConfigManager(Paths.get("config"), NightConfigSerializer.ALL);
-    private static final ConfigManager backup = new ConfigManager(Paths.get("oneconfig", "backup"), NightConfigSerializer.ALL);
+    private static final ConfigManager backup = new ConfigManager(Paths.get(DATA_DIR, "backup"), NightConfigSerializer.ALL);
     private static ConfigManager active;
     private static boolean initialized = false;
     private static boolean isFirstRun = false;
@@ -179,14 +187,14 @@ public final class ConfigManager {
     }
 
     /**
-     * Returns a reference to the internal config manager which is mounted onto the ./OneConfig directory
+     * Returns a reference to the internal config manager which is mounted onto the ./zordyx_client directory
      */
     public static ConfigManager internal() {
         return internal;
     }
 
     /**
-     * Returns a reference to config manager which contains the backup configs and is mounted onto the ./OneConfig/backup directory
+     * Returns a reference to config manager which contains the backup configs and is mounted onto the ./zordyx_client/backup directory
      * <br>
      * <b>internal use only</b>
      * <br>used for the restore to default buttons
@@ -374,7 +382,7 @@ public final class ConfigManager {
         );
         if (result.state == Backend.RegistrationResult.NEW) {
             isFirstRun = true;
-            LOGGER.info("Welcome to OneConfig!");
+            LOGGER.info("Welcome to Zordyx Client!");
         }
         if (result.get().getProp("favoriteProfiles") == null) {
             result.get().put(Properties.simple("favoriteProfiles", "Favorite Profiles", "Profiles marked as favorites.", new String[0], String[].class));

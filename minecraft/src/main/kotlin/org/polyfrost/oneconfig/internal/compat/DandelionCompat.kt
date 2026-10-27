@@ -174,7 +174,7 @@ object DandelionCompat {
                 property.title = option.name()
                 property.description =
                     Component.literal("Failed to create compat entry for option! ").append(option.name())
-                        .append("\nPlease report this to the Polyfrost Discord: https://discord.gg/polyfrost")
+                        .append("\nPlease report this at https://github.com/notdeathlyatall/Zordyx-Client/issues")
                 property.visualizer = Visualizer.InfoVisualizer::class.java
                 property.category = category
                 property.subcategory = subcategory

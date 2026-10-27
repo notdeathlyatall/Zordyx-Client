@@ -1,6 +1,6 @@
 [
   {
-    "modid": "oneconfigv1",
+    "modid": "zordyx_client_v1",
     "name": "${mod_name}",
     "description": "Zordyx Client",
     "version": "${mod_version}",

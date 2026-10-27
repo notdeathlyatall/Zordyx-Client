@@ -61,7 +61,9 @@ class TreeConfigData(
         get() {
             val explicit = tree.getMetadata<Config.Category>("category")
             if (explicit != null && explicit != Config.Category.OTHER) return explicit
-            return ThirdPartyModCategories.categoryFor(id, modInfo) ?: explicit ?: Config.Category.OTHER
+            // the Polyfrost-hosted category list this used to consult was removed with the rest of the Polyfrost
+            // integrations, so a config's own category is the only source left
+            return explicit ?: Config.Category.OTHER
         }
 
     override val description: String?

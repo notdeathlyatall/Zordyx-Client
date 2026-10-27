@@ -143,7 +143,7 @@ fun Theme(
 }
 
 internal fun syncNotificationTheme(theme: UITheme) {
-    val minecraft = theme.previewImage.startsWith("minecraft")
+    val minecraft = theme.isMinecraftStyle
     NotificationTheme.set(
         background = PolyColor(theme.popupBackground.toArgb()),
         border = PolyColor(theme.borderColor.toArgb()),

@@ -84,7 +84,6 @@ import org.polyfrost.oneconfig.internal.ui.api.ModGridEntry
 import org.polyfrost.oneconfig.internal.ui.api.ModHidden
 import org.polyfrost.oneconfig.internal.ui.api.ModOrder
 import org.polyfrost.oneconfig.internal.ui.api.ModSortStore
-import org.polyfrost.oneconfig.internal.ui.api.ThirdPartyModCategories
 import org.polyfrost.oneconfig.internal.ui.api.Tooltip
 import org.polyfrost.oneconfig.internal.ui.api.buildModGridEntries
 import org.polyfrost.oneconfig.internal.ui.api.modCardOrder
@@ -189,7 +188,6 @@ private fun ModsPage() {
 fun ColumnScope.ModsGrid(category: ModCategory) {
     val registryRevision = ConfigRegistry.revision
     val hudRevision = HudManager.revision
-    val categoryRevision = ThirdPartyModCategories.revision
     val favoriteRevision = ModFavorites.revision
     val hiddenRevision = ModHidden.revision
     val orderRevision = ModOrder.revision
@@ -197,7 +195,7 @@ fun ColumnScope.ModsGrid(category: ModCategory) {
     val typeRevision = ModCardTypes.revision
     val collapseRevision = ModCardTypeCollapseStore.revision
     val filtered = remember(
-        registryRevision, hudRevision, category, categoryRevision, favoriteRevision, hiddenRevision, orderRevision,
+        registryRevision, hudRevision, category, favoriteRevision, hiddenRevision, orderRevision,
         typeRevision, sortMode,
     ) {
         ConfigRegistry.modCardConfigs

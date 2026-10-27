@@ -479,6 +479,7 @@ public final class org/polyfrost/oneconfig/api/ui/v1/page/PageGroup {
 	public static final field MODS_AND_OPTIONS Lorg/polyfrost/oneconfig/api/ui/v1/page/PageGroup;
 	public static final field ONECONFIG Lorg/polyfrost/oneconfig/api/ui/v1/page/PageGroup;
 	public static final field PERSONALIZATION Lorg/polyfrost/oneconfig/api/ui/v1/page/PageGroup;
+	public static final field ZORDYX Lorg/polyfrost/oneconfig/api/ui/v1/page/PageGroup;
 	public static final fun create (Ljava/lang/String;Lorg/polyfrost/oneconfig/api/ui/v1/page/PageText;I)Lorg/polyfrost/oneconfig/api/ui/v1/page/PageGroup;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getId ()Ljava/lang/String;
@@ -589,8 +590,6 @@ public final class org/polyfrost/oneconfig/api/ui/v1/theme/OneConfigTheme {
 	public static final fun getLogoOverride ()Ljava/lang/String;
 	public static final fun getMINECRAFT_DARK ()Lorg/polyfrost/oneconfig/api/ui/v1/theme/OneConfigUITheme;
 	public static final fun getMINECRAFT_LIGHT ()Lorg/polyfrost/oneconfig/api/ui/v1/theme/OneConfigUITheme;
-	public static final fun getPOLY_GLASS_DARK ()Lorg/polyfrost/oneconfig/api/ui/v1/theme/OneConfigUITheme;
-	public static final fun getPOLY_GLASS_LIGHT ()Lorg/polyfrost/oneconfig/api/ui/v1/theme/OneConfigUITheme;
 	public static final fun overrideLogo (Ljava/lang/String;)V
 }
 

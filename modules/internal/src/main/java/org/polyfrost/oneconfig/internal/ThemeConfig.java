@@ -7,8 +7,15 @@ import org.polyfrost.oneconfig.api.config.v1.annotations.Switch;
 import org.polyfrost.oneconfig.api.config.v1.annotations.Text;
 
 public class ThemeConfig extends Config {
+    /**
+     * The id of the active theme, such as {@code zordyx-dark}.
+     * <p>
+     * Configurations written before themes had ids hold a display name here, so {@code ThemeRegistry} matches a
+     * theme by id and then by name, and falls back to Zordyx Dark when neither matches. Written to this mod's own
+     * theme file, which no longer shares OneConfig's.
+     */
     @Text(title = "Active Theme")
-    public static String activeTheme = "Zordyx Dark";
+    public static String activeTheme = "zordyx-dark";
 
     @Color(title = "Accent Color", description = "The accent color of the Zordyx Client interface", icon = "paintbrush", gradient = true)
     public static PolyColor accentColor = new PolyColor(0xFF0A7C6F);
@@ -17,7 +24,7 @@ public class ThemeConfig extends Config {
     public static boolean animations = true;
 
     public ThemeConfig() {
-        super("themes.json", "assets/oneconfig/brand/oneconfig-icon.svg", "Themes", Category.QOL);
+        super(ZordyxClientInfo.THEMES_ID, "assets/oneconfig/brand/oneconfig-icon.svg", "Themes", Category.QOL);
     }
 
     @Override

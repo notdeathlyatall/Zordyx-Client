@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.polyfrost.oneconfig.api.platform.v1.ModInfo
 import org.polyfrost.oneconfig.api.platform.v1.Platform
+import org.polyfrost.oneconfig.internal.ZordyxClientInfo
 import org.polyfrost.oneconfig.internal.ui.api.TranslationCredits
 import org.polyfrost.oneconfig.internal.ui.components.ScrollbarBox
 import org.polyfrost.oneconfig.internal.ui.components.Text
@@ -27,9 +28,9 @@ import org.polyfrost.oneconfig.internal.ui.components.rememberSvgResourcePainter
 import org.polyfrost.oneconfig.internal.ui.shell.PageGutter
 import org.polyfrost.oneconfig.internal.ui.themes.LocalTheme
 
-private val oneConfigVersion: String? by lazy {
+private val clientVersion: String? by lazy {
     runCatching {
-        ModInfo.loadedMods.firstOrNull { it.id == "oneconfigv1" }?.version
+        ModInfo.loadedMods.firstOrNull { it.id == ZordyxClientInfo.PLATFORM_MOD_ID }?.version
     }.getOrNull()?.trim()?.takeIf { it.isNotEmpty() }
 }
 
@@ -38,7 +39,7 @@ private data class CreditSection(val title: String, val entries: List<String>)
 private fun translationCredit(): String {
     val i18n = Platform.i18n()
     val loaded = ModInfo.loadedMods
-    val mods = (TranslationCredits.namespaces - "oneconfig")
+    val mods = (TranslationCredits.namespaces - ZordyxClientInfo.RESOURCE_NAMESPACE)
         .map { namespace -> loaded.firstOrNull { it.id == namespace }?.name ?: namespace }
         .distinct()
         .sortedWith(String.CASE_INSENSITIVE_ORDER)
@@ -111,7 +112,7 @@ fun Credits() {
                         modifier = Modifier.size(474.dp, 54.dp).accentGradientFill()
                     )
                 }
-                oneConfigVersion?.let { version ->
+                clientVersion?.let { version ->
                     Text(
                         "v$version",
                         color = theme.textColorSecondary,
@@ -120,19 +121,9 @@ fun Credits() {
                     )
                 }
             }
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(bottom = 8.dp)
-            ) {
-                Text("by ", color = theme.textColorSecondary, fontSize = 13.sp)
-                rememberSvgResourcePainter("assets/oneconfig/brand/by-polyfrost.svg")?.let { poly ->
-                    Image(
-                        painter = poly,
-                        contentDescription = "Polyfrost",
-                        modifier = Modifier.size(139.dp, 24.dp)
-                    )
-                }
-            }
+            // The upstream credits stay: this fork keeps OneConfig's authorship, license and translation
+            // attribution. The Polyfrost and Atmofrost corporate/brand logos that used to sit above the list were
+            // Polyfrost product branding rather than attribution, so they are not shown any more.
             creditSections.forEach { section ->
                 Text(
                     section.title,
@@ -146,20 +137,6 @@ fun Credits() {
                         Text(" - $entry", color = theme.textColorSecondary, fontSize = 13.sp)
                     }
                 }
-            }
-            Text(
-                "Legal and Corporate:",
-                color = theme.textColorSecondary,
-                fontSize = 13.sp,
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.padding(top = 24.dp, bottom = 8.dp)
-            )
-            rememberSvgResourcePainter("assets/oneconfig/brand/atmofrost.svg")?.let { atmofrost ->
-                Image(
-                    painter = atmofrost,
-                    contentDescription = "Atmofrost",
-                    modifier = Modifier.padding(bottom = 16.dp).size(100.dp, 41.dp)
-                )
             }
         }
     }

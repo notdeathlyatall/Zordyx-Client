@@ -1,4 +1,9 @@
 ## Unreleased
+- Zordyx Client is now its own mod as far as Minecraft, Fabric Loader and launchers are concerned: it uses the ids `zordyx_client` and `zordyx_client_v1`, its own artifact name, mixin configs and access widener, and declares that it provides `oneconfig` so mods depending on OneConfig still load
+- Zordyx Client's settings and themes moved into their own namespace (`zordyx_client/`, `zordyx-client.json`, `zordyx-themes.json`), so it no longer shares configuration or theme files with OneConfig; existing settings are copied across automatically
+- The menu now opens on Right Control instead of Right Shift, so it does not collide with another mod opening on the same key, and its Minecraft keybind category is registered under Zordyx Client's own namespace
+- Removed the PolyGlass themes and their previews, the Polyfrost and Atmofrost logos on the credits page, and the Polyfrost mod-list and category service
+- Added custom themes: drop a JSON file into `zordyx_client/themes` to theme the interface, with validation, clear errors and a fallback to Zordyx Dark
 - Rebranded the project as Zordyx Client
 - New Zordyx interface: expandable sidebar with Modules, Overlays, Legit mods, Profiles, Friends, Macros, Online and Global settings, plus module lists with search, filters and visual toggles (interface preview, no module behaviour yet)
 

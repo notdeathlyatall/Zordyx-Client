@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "oneconfigv1",
+  "id": "zordyx_client_v1",
   "name": "Zordyx Client (Platform Module)",
   "version": "${mod_version}",
   "description": "Access all your mod settings in one place, with a sleek and intuitive interface.",
@@ -13,12 +13,15 @@
     "sources": "https://github.com/notdeathlyatall/Zordyx-Client",
     "issues": "https://github.com/notdeathlyatall/Zordyx-Client/issues"
   },
+  "provides": [
+    "oneconfigv1"
+  ],
   "license": "LGPL-3.0",
   "environment": "client",
-  "accessWidener": "oneconfigv1.classtweaker",
+  "accessWidener": "zordyx_client.classtweaker",
   "mixins": [
-    "mixins.oneconfigv1.init.json",
-    "mixins.oneconfigv1.json"
+    "mixins.zordyx_client.init.json",
+    "mixins.zordyx_client.json"
   ],
   "entrypoints": {
     "client": [
@@ -41,7 +44,7 @@
   },
   "custom": {
     "modmenu": {
-      "parent": "oneconfig",
+      "parent": "zordyx_client",
       "badges": [ "library" ]
     }
   }

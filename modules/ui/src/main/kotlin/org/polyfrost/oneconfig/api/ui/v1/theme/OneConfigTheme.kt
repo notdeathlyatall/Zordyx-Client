@@ -11,12 +11,6 @@ import org.polyfrost.oneconfig.api.ui.v1.internal.componentsBridge
 @ExperimentalOneConfigUiApi
 object OneConfigTheme {
     @JvmStatic
-    val POLY_GLASS_DARK: OneConfigUITheme by lazy { componentsBridge().polyGlassDark() }
-
-    @JvmStatic
-    val POLY_GLASS_LIGHT: OneConfigUITheme by lazy { componentsBridge().polyGlassLight() }
-
-    @JvmStatic
     val MINECRAFT_DARK: OneConfigUITheme by lazy { componentsBridge().minecraftDark() }
 
     @JvmStatic
@@ -32,8 +26,14 @@ object OneConfigTheme {
     val active: OneConfigUITheme?
         get() = componentsBridge().activeTheme()
 
+    /**
+     * The themes shipped with this mod's interface.
+     * <p>
+     * Zordyx Dark is the default but is not listed here: it is the interface's own theme and consumers reach it
+     * through [active] or [ensureLoaded].
+     */
     @JvmStatic
-    fun builtIn(): List<OneConfigUITheme> = listOf(POLY_GLASS_DARK, POLY_GLASS_LIGHT, MINECRAFT_DARK, MINECRAFT_LIGHT)
+    fun builtIn(): List<OneConfigUITheme> = listOf(MINECRAFT_DARK, MINECRAFT_LIGHT)
 
     @JvmStatic
     fun activate(theme: OneConfigUITheme) {

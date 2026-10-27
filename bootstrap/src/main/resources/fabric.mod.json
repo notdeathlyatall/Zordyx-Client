@@ -13,8 +13,9 @@
     "sources": "https://github.com/notdeathlyatall/Zordyx-Client",
     "issues": "https://github.com/notdeathlyatall/Zordyx-Client/issues"
   },
-  "icon": "oneconfig-icon.png",
+  "icon": "zordyx-icon.png",
   "provides": [
+    "oneconfig",
     "oneconfigbootstrap"
   ],
   "license": "LGPL-3.0",
@@ -22,7 +23,7 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "minecraft": "${mc_version}",
-    "oneconfigv1": "${mod_version}",
+    "zordyx_client_v1": "${mod_version}",
     "compose-multiplatform": ">=${compose_version}",
     "fabric-language-kotlin": ">=${flk_version}"
   },

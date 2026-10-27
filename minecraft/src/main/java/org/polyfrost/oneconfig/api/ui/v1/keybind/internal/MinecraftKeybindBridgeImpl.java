@@ -25,6 +25,7 @@ import org.polyfrost.oneconfig.api.ui.v1.keybind.MinecraftKeybindBridge;
 import org.polyfrost.oneconfig.api.ui.v1.keybind.OneConfigKeybind;
 import org.polyfrost.oneconfig.internal.mixin.keybind.KeyMappingAccessor;
 import org.polyfrost.oneconfig.internal.mixin.keybind.KeyMappingRegistryAccessor;
+import org.polyfrost.oneconfig.internal.ZordyxClientInfo;
 import org.polyfrost.oneconfig.internal.mixin.keybind.OptionsAccessor;
 
 //? if >= 1.21.11 {
@@ -66,7 +67,9 @@ public final class MinecraftKeybindBridgeImpl implements MinecraftKeybindBridge 
         String label = (name == null || name.isBlank()) ? "Zordyx Client" : name;
         return categories.computeIfAbsent(label, n -> {
             //~if >= 1.21.11 'ResourceLocation' -> 'Identifier'
-            Identifier id = Identifier.fromNamespaceAndPath("oneconfig", uniquePath(n));
+            // the registry namespace is this mod's own: registering categories under "oneconfig" would clash with
+            // the categories upstream OneConfig registers if both jars are ever installed together
+            Identifier id = Identifier.fromNamespaceAndPath(ZordyxClientInfo.REGISTRY_NAMESPACE, uniquePath(n));
             KeyMapping.Category category = KeyMapping.Category.register(id);
             CATEGORY_LABELS.put(id, n);
             return category;
