@@ -67,13 +67,98 @@ data class LegitModEntry(
 
 object ZordyxCatalog {
     /**
-     * The module inventory.
+     * The module inventory, grouped by the category row it belongs to.
      *
-     * Still empty: the per-category module list has not been supplied yet. Entries added here show up
-     * in the category view, its counter, and search automatically. A module is one row of data:
-     * `ModuleEntry("screenshot", "Screenshot", ModuleCategory.Utility, description = "...")`.
+     * This is the single source for the Modules section: an entry here becomes one row with its own
+     * toggle in that category, and it joins that category's counter and search automatically. A module
+     * is one row of data, so nothing here loads, registers or runs anything in the game.
      */
-    val modules: List<ModuleEntry> = emptyList()
+    val modules: List<ModuleEntry> = listOf(
+        // Combat
+        ModuleEntry("aim-assist", "AimAssist", ModuleCategory.Combat, "Gently steers your aim toward nearby targets."),
+        ModuleEntry("auto-clicker", "AutoClicker", ModuleCategory.Combat, "Clicks at a steady rate while the attack button is held."),
+        ModuleEntry("block-hit", "BlockHit", ModuleCategory.Combat, "Blocks and attacks in one smooth motion."),
+        ModuleEntry("hit-flick", "HitFlick", ModuleCategory.Combat, "Flicks your crosshair onto the target as your hit lands."),
+        ModuleEntry("hit-select", "HitSelect", ModuleCategory.Combat, "Keeps your aim on the entity you actually clicked."),
+        ModuleEntry("reach", "Reach", ModuleCategory.Combat, "Extends how far your hits can land."),
+        ModuleEntry("right-clicker", "RightClicker", ModuleCategory.Combat, "Right clicks at a steady rate while the button is held."),
+        ModuleEntry("silent-aura", "SilentAura", ModuleCategory.Combat, "Attacks targets around you without moving your crosshair."),
+        ModuleEntry("sprint", "Sprint", ModuleCategory.Combat, "Keeps you sprinting without holding the key."),
+        ModuleEntry("jump-reset", "JumpReset", ModuleCategory.Combat, "Times your jumps to soften incoming knockback."),
+        ModuleEntry("w-tap", "WTap", ModuleCategory.Combat, "Taps forward on hit so your knockback keeps its strength."),
+        ModuleEntry("triggerbot", "Triggerbot", ModuleCategory.Combat, "Attacks whatever moves across your crosshair."),
+        ModuleEntry("crystal-aura", "CrystalAura", ModuleCategory.Combat, "Places and breaks end crystals for you."),
+
+        // Render
+        ModuleEntry("anti-debuff", "AntiDebuff", ModuleCategory.Render, "Hides the debuff overlay covering your screen."),
+        ModuleEntry("arrows", "Arrows", ModuleCategory.Render, "Draws the direction arrows are flying from."),
+        ModuleEntry("chams", "Chams", ModuleCategory.Render, "Renders entities through walls with a flat colour."),
+        ModuleEntry("esp", "ESP", ModuleCategory.Render, "Highlights nearby entities with an outline."),
+        ModuleEntry("explosions", "Explosions", ModuleCategory.Render, "Shows the blast radius of an explosion before it happens."),
+        ModuleEntry("fullbright", "Fullbright", ModuleCategory.Render, "Keeps caves and night-time fully lit."),
+        ModuleEntry("health", "Health", ModuleCategory.Render, "Shows your health as a clean bar or number."),
+        ModuleEntry("indicators", "Indicators", ModuleCategory.Render, "Marks important entities with floating labels."),
+        ModuleEntry("item-esp", "ItemESP", ModuleCategory.Render, "Highlights dropped items through walls."),
+        ModuleEntry("name-tags", "NameTags", ModuleCategory.Render, "Replaces name tags with clearer, scaled text."),
+        ModuleEntry("projectiles", "Projectiles", ModuleCategory.Render, "Traces the path of projectiles heading your way."),
+        ModuleEntry("search", "Search", ModuleCategory.Render, "Marks the blocks you are looking for."),
+        ModuleEntry("spawner-finder", "SpawnerFinder", ModuleCategory.Render, "Reveals spawners hidden in the world."),
+        ModuleEntry("storage-esp", "StorageESP", ModuleCategory.Render, "Highlights chests, barrels and shulkers."),
+        ModuleEntry("tracers", "Tracers", ModuleCategory.Render, "Draws lines from you to nearby entities."),
+        ModuleEntry("trajectories", "Trajectories", ModuleCategory.Render, "Shows where your projectiles will land."),
+
+        // Utility
+        ModuleEntry("anti-fireball", "AntiFireball", ModuleCategory.Utility, "Knocks fireballs away before they reach you."),
+        ModuleEntry("auto-anchor", "AutoAnchor", ModuleCategory.Utility, "Charges and fires respawn anchors for you."),
+        ModuleEntry("auto-mace", "AutoMace", ModuleCategory.Utility, "Swaps to your mace at the right moment."),
+        ModuleEntry("auto-pearl", "AutoPearl", ModuleCategory.Utility, "Throws an ender pearl when you need one."),
+        ModuleEntry("clutch", "Clutch", ModuleCategory.Utility, "Helps you land safely from a bad fall."),
+        ModuleEntry("hit-swap", "HitSwap", ModuleCategory.Utility, "Swaps to your best weapon the moment you hit."),
+        ModuleEntry("panic", "Panic", ModuleCategory.Utility, "Turns every module off at once."),
+        ModuleEntry("pearl-catch", "PearlCatch", ModuleCategory.Utility, "Catches the pearls thrown to you."),
+        ModuleEntry("scaffold", "Scaffold", ModuleCategory.Utility, "Places blocks under your feet as you walk."),
+        ModuleEntry("shield-breaker", "ShieldBreaker", ModuleCategory.Utility, "Switches to an axe to crack a shield."),
+        ModuleEntry("target-filter", "TargetFilter", ModuleCategory.Utility, "Chooses which entities count as targets."),
+        ModuleEntry("velocity", "Velocity", ModuleCategory.Utility, "Reduces the knockback you take."),
+        ModuleEntry("wind-charge", "WindCharge", ModuleCategory.Utility, "Uses wind charges to launch you upward."),
+
+        // World
+        ModuleEntry("anti-afk", "Anti-AFK", ModuleCategory.World, "Keeps you from being kicked while idle."),
+        ModuleEntry("auto-fish", "AutoFish", ModuleCategory.World, "Reels in the moment a fish bites."),
+        ModuleEntry("auto-tool", "AutoTool", ModuleCategory.World, "Picks the fastest tool for the block you are breaking."),
+        ModuleEntry("block-in", "Block In", ModuleCategory.World, "Builds a quick box of blocks around you for cover."),
+        ModuleEntry("chest-steal", "ChestSteal", ModuleCategory.World, "Loots a chest the moment you open it."),
+        ModuleEntry("fast-place", "FastPlace", ModuleCategory.World, "Removes the delay between block placements."),
+        ModuleEntry("freecam", "Freecam", ModuleCategory.World, "Lets your camera fly away from your body."),
+        ModuleEntry("mlg", "MLG", ModuleCategory.World, "Places water under you to survive a fall."),
+        ModuleEntry("parkour", "Parkour", ModuleCategory.World, "Jumps for you at the edge of a block."),
+        ModuleEntry("safe-walk", "SafeWalk", ModuleCategory.World, "Stops you from walking off an edge."),
+        ModuleEntry("xray", "XRay", ModuleCategory.World, "Shows only the ores you care about."),
+
+        // Inventory
+        ModuleEntry("armor-switch", "ArmorSwitch", ModuleCategory.Inventory, "Equips the right armour piece in one click."),
+        ModuleEntry("auto-armor", "AutoArmor", ModuleCategory.Inventory, "Equips the best armour whenever you pick it up."),
+        ModuleEntry("auto-hotbar", "AutoHotbar", ModuleCategory.Inventory, "Moves the item you need into your hotbar."),
+        ModuleEntry("auto-totem", "AutoTotem", ModuleCategory.Inventory, "Keeps a totem in your offhand."),
+        ModuleEntry("inv-cleaner", "InvCleaner", ModuleCategory.Inventory, "Drops the junk out of your inventory."),
+        ModuleEntry("inventory-manager", "InventoryManager", ModuleCategory.Inventory, "Sorts and arranges your inventory for you."),
+        ModuleEntry("inventory-fill", "InventoryFill", ModuleCategory.Inventory, "Fills empty slots with matching stacks."),
+        ModuleEntry("refill", "Refill", ModuleCategory.Inventory, "Refills your hotbar from your inventory."),
+        ModuleEntry("throw-debuff", "ThrowDebuff", ModuleCategory.Inventory, "Throws debuff potions without opening your inventory."),
+        ModuleEntry("throw-pot", "ThrowPot", ModuleCategory.Inventory, "Throws healing potions in a single key press."),
+
+        // Network
+        ModuleEntry("back-track", "BackTrack", ModuleCategory.Network, "Keeps where you were a moment ago, so hits still register."),
+        ModuleEntry("blink", "Blink", ModuleCategory.Network, "Holds your packets and releases them all at once."),
+        ModuleEntry("fake-lag", "FakeLag", ModuleCategory.Network, "Shows other players a delayed version of you."),
+        ModuleEntry("knockback-delay", "KnockbackDelay", ModuleCategory.Network, "Times your hit so the knockback arrives late."),
+
+        // Minigames
+        ModuleEntry("bed-breaker", "BedBreaker", ModuleCategory.Minigames, "Breaks beds the moment you reach them."),
+        ModuleEntry("bed-plates", "BedPlates", ModuleCategory.Minigames, "Shows the protection layers on a bed."),
+        ModuleEntry("murderer-finder", "MurdererFinder", ModuleCategory.Minigames, "Highlights the murderer in Murder Mystery."),
+        ModuleEntry("prop-hunt", "PropHunt", ModuleCategory.Minigames, "Tells you which props are players in disguise."),
+    )
 
     fun modulesIn(category: ModuleCategory): List<ModuleEntry> = modules.filter { it.category == category }
 
