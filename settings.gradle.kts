@@ -147,6 +147,7 @@ listOf(
     "ui",
     "internal",
     "dependencies",
+    "compat",
     //"dependencies:legacy",
     "utils",
     "mod-toggles",

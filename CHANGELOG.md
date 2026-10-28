@@ -1,5 +1,8 @@
 ## Unreleased
-- Zordyx Client is now its own mod as far as Minecraft, Fabric Loader and launchers are concerned: it uses the ids `zordyx_client` and `zordyx_client_v1`, its own artifact name, mixin configs and access widener, and declares that it provides `oneconfig` so mods depending on OneConfig still load
+- Zordyx Client is now its own mod as far as Minecraft, Fabric Loader and launchers are concerned: it uses the ids `zordyx_client` and `zordyx_client_v1`, its own artifact name, mixin configs and access widener, and ships a small compatibility mod that keeps the OneConfig ids available for mods that depend on them
+- Fix mods that depend on OneConfig failing to load with a missing dependency error. Fabric Loader checks a dependency's version against the mod that owns the id, so Zordyx Client's release version could never satisfy a constraint like `oneconfig >=1.5.0`. A metadata-only `oneconfig` compatibility mod, nested inside the Zordyx Client jar, now carries both OneConfig ids at version 1.5.0 and holds no classes of its own
+- Add the AimAssist module to the Combat subsection, with a settings screen for its mode, target filters, speeds, range, item limits and targeting. It is a configuration screen only: no aiming behaviour is implemented yet
+- The default accent colour is now green
 - Zordyx Client's settings and themes moved into their own namespace (`zordyx_client/`, `zordyx-client.json`, `zordyx-themes.json`), so it no longer shares configuration or theme files with OneConfig; existing settings are copied across automatically
 - The menu now opens on Right Control instead of Right Shift, so it does not collide with another mod opening on the same key, and its Minecraft keybind category is registered under Zordyx Client's own namespace
 - Removed the PolyGlass themes and their previews, the Polyfrost and Atmofrost logos on the credits page, and the Polyfrost mod-list and category service

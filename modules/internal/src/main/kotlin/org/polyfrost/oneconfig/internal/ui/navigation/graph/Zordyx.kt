@@ -10,6 +10,7 @@ import org.polyfrost.oneconfig.internal.ui.zordyx.SettingsSection
 import org.polyfrost.oneconfig.internal.ui.zordyx.ZordyxFriendsScreen
 import org.polyfrost.oneconfig.internal.ui.zordyx.ZordyxLegitModsScreen
 import org.polyfrost.oneconfig.internal.ui.zordyx.ZordyxMacrosScreen
+import org.polyfrost.oneconfig.internal.ui.zordyx.ZordyxModuleSettingsScreen
 import org.polyfrost.oneconfig.internal.ui.zordyx.ZordyxModulesScreen
 import org.polyfrost.oneconfig.internal.ui.zordyx.ZordyxOnlineScreen
 import org.polyfrost.oneconfig.internal.ui.zordyx.ZordyxOverlaysScreen
@@ -20,6 +21,9 @@ data object ZordyxModulesGraph
 
 @Serializable
 data class ZordyxModulesRoute(val category: String? = null)
+
+@Serializable
+data class ZordyxModuleSettingsRoute(val module: String)
 
 @Serializable
 data object ZordyxOverlaysGraph
@@ -62,6 +66,9 @@ fun NavGraphBuilder.zordyxGraph() {
         composable<ZordyxModulesRoute> { entry ->
             val route = entry.toRoute<ZordyxModulesRoute>()
             ZordyxModulesScreen(ModuleCategory.byId(route.category) ?: ModuleCategory.Combat)
+        }
+        composable<ZordyxModuleSettingsRoute> { entry ->
+            ZordyxModuleSettingsScreen(entry.toRoute<ZordyxModuleSettingsRoute>().module)
         }
     }
     navigation<ZordyxOverlaysGraph>(startDestination = ZordyxOverlaysRoute()) {

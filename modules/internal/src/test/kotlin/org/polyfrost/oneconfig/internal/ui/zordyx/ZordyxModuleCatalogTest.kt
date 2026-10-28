@@ -101,6 +101,21 @@ class ZordyxModuleCatalogTest {
     }
 
     @Test
+    fun aimAssistIsOneCombatEntryThatOffersSettings() {
+        val entries = ZordyxCatalog.modulesIn(ModuleCategory.Combat).filter { it.id == ZordyxCatalog.AIM_ASSIST_ID }
+        assertEquals(1, entries.size, "AimAssist must appear once, in Combat")
+
+        val aimAssist = entries.single()
+        assertEquals("AimAssist", aimAssist.name)
+        assertEquals(
+            "Helps you keep your aim on target by smoothly adjusting your crosshair's position.",
+            aimAssist.description,
+        )
+        assertTrue(aimAssist.hasSettings, "the row must offer a way into the settings screen")
+        assertEquals(1, ZordyxCatalog.modules.count { it.hasSettings }, "AimAssist is the only module with settings so far")
+    }
+
+    @Test
     fun searchFindsModulesByTheirOwnName() {
         val scaffold = ZordyxCatalog.modulesIn(ModuleCategory.Utility).first { it.name == "Scaffold" }
 

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "oneconfig",
+  "version": "${version}",
+  "name": "OneConfig Compatibility",
+  "description": "Carries the OneConfig mod ids at the OneConfig API level Zordyx Client implements, so mods that depend on oneconfig or oneconfigv1 keep resolving. It contains no classes: every OneConfig API is implemented by Zordyx Client's platform module.",
+  "authors": [
+    "Zordyx",
+    "Polyfrost"
+  ],
+  "contact": {
+    "homepage": "https://github.com/notdeathlyatall/Zordyx-Client",
+    "sources": "https://github.com/notdeathlyatall/Zordyx-Client",
+    "issues": "https://github.com/notdeathlyatall/Zordyx-Client/issues"
+  },
+  "provides": [
+    "oneconfigv1"
+  ],
+  "license": "LGPL-3.0",
+  "environment": "client",
+  "custom": {
+    "modmenu": {
+      "parent": "zordyx_client",
+      "badges": [ "library" ]
+    }
+  }
+}

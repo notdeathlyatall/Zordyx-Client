@@ -35,6 +35,8 @@ data class ModuleEntry(
     val icon: String? = null,
     val tags: List<String> = emptyList(),
     val enabled: Boolean = false,
+    /** Whether this entry has a settings screen, which the module row then offers. */
+    val hasSettings: Boolean = false,
 )
 
 data class OverlayEntry(
@@ -66,6 +68,9 @@ data class LegitModEntry(
 )
 
 object ZordyxCatalog {
+    /** The AimAssist entry, the only module with a settings screen so far. */
+    const val AIM_ASSIST_ID = "aim-assist"
+
     /**
      * The module inventory, grouped by the category row it belongs to.
      *
@@ -75,7 +80,11 @@ object ZordyxCatalog {
      */
     val modules: List<ModuleEntry> = listOf(
         // Combat
-        ModuleEntry("aim-assist", "AimAssist", ModuleCategory.Combat, "Gently steers your aim toward nearby targets."),
+        ModuleEntry(
+            AIM_ASSIST_ID, "AimAssist", ModuleCategory.Combat,
+            "Helps you keep your aim on target by smoothly adjusting your crosshair's position.",
+            hasSettings = true,
+        ),
         ModuleEntry("auto-clicker", "AutoClicker", ModuleCategory.Combat, "Clicks at a steady rate while the attack button is held."),
         ModuleEntry("block-hit", "BlockHit", ModuleCategory.Combat, "Blocks and attacks in one smooth motion."),
         ModuleEntry("hit-flick", "HitFlick", ModuleCategory.Combat, "Flicks your crosshair onto the target as your hit lands."),

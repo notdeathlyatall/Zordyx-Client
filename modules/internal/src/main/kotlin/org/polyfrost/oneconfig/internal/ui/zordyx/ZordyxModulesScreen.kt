@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -20,7 +21,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.polyfrost.oneconfig.internal.ui.components.Chip
+import org.polyfrost.oneconfig.internal.ui.components.IconButton
 import org.polyfrost.oneconfig.internal.ui.components.Text
+import org.polyfrost.oneconfig.internal.ui.components.settings.SwitchControl
+import org.polyfrost.oneconfig.internal.ui.navigation.graph.ZordyxModuleSettingsRoute
 import org.polyfrost.oneconfig.internal.ui.navigation.graph.ZordyxModulesRoute
 import org.polyfrost.oneconfig.internal.ui.shell.LocalShell
 import org.polyfrost.oneconfig.internal.ui.shell.PageGutter
@@ -105,15 +109,31 @@ fun ZordyxModulesScreen(category: ModuleCategory) {
                 contentPadding = PaddingValues(horizontal = PageGutter, vertical = 2.dp),
             ) {
                 items(visible, key = { it.id }) { module ->
+                    val enabled = ZordyxState.isEnabled(module.id, module.enabled)
                     ZordyxToggleRow(
                         name = module.name,
                         description = module.description,
-                        enabled = ZordyxState.isEnabled(module.id, module.enabled),
+                        enabled = enabled,
                         onToggle = {
                             ZordyxState.setEnabled(module.id, !ZordyxState.isEnabled(module.id, module.enabled))
                         },
                         icon = module.icon ?: category.icon,
                         tags = module.tags,
+                        trailing = {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                            ) {
+                                if (module.hasSettings) {
+                                    IconButton("settings", Modifier.size(16.dp)) {
+                                        navigation.navigate(ZordyxModuleSettingsRoute(module.id))
+                                    }
+                                }
+                                SwitchControl(enabled) {
+                                    ZordyxState.setEnabled(module.id, !ZordyxState.isEnabled(module.id, module.enabled))
+                                }
+                            }
+                        },
                     )
                 }
             }
@@ -122,3 +142,31 @@ fun ZordyxModulesScreen(category: ModuleCategory) {
 }
 
 private fun count(size: Int, singular: String): String = "$size " + if (size == 1) singular else singular + "s"
+
+/**
+ * The settings screen behind a module row's settings button.
+ *
+ * Only AimAssist has one so far; every other entry explains that it is listed for the interface preview
+ * and has nothing to configure yet.
+ */
+@Composable
+fun ZordyxModuleSettingsScreen(moduleId: String) {
+    val module = ZordyxCatalog.modules.firstOrNull { it.id == moduleId }
+    if (module == null) {
+        ZordyxEmptyState(
+            icon = "settings",
+            title = "Module not found",
+            body = "This module is no longer part of the catalogue, so it has no settings to show.",
+        )
+        return
+    }
+
+    when (module.id) {
+        ZordyxCatalog.AIM_ASSIST_ID -> ZordyxAimAssistSettings()
+        else -> ZordyxEmptyState(
+            icon = module.icon ?: "settings",
+            title = "No settings for ${module.name}",
+            body = "${module.name} is part of the interface preview and has no configuration options yet.",
+        )
+    }
+}

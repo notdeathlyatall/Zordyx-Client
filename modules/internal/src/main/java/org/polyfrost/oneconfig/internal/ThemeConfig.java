@@ -18,7 +18,7 @@ public class ThemeConfig extends Config {
     public static String activeTheme = "zordyx-dark";
 
     @Color(title = "Accent Color", description = "The accent color of the Zordyx Client interface", icon = "paintbrush", gradient = true)
-    public static PolyColor accentColor = new PolyColor(0xFF0A7C6F);
+    public static PolyColor accentColor = new PolyColor(0xFF2ECC40);
 
     @Switch(title = "Animations", description = "Smooth, clean animations in the Zordyx Client interface", icon = "refresh")
     public static boolean animations = true;

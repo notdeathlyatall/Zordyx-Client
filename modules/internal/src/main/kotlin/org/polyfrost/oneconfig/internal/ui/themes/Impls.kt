@@ -75,7 +75,7 @@ private val MinecraftIconOverrides = mapOf(
 )
 
 /**
- * The Zordyx look: near-black surfaces, neutral borders and one restrained teal accent.
+ * The Zordyx look: near-black surfaces, neutral borders and one vivid green accent.
  *
  * Surfaces stay opaque and low contrast so long module lists read cleanly; the accent is only used
  * for selection, enabled switches and focus.

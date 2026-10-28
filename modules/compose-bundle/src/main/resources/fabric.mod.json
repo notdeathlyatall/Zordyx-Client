@@ -19,7 +19,7 @@
   },
   "custom": {
     "modmenu": {
-      "parent": "oneconfig",
+      "parent": "zordyx_client",
       "badges": ["library"]
     }
   }

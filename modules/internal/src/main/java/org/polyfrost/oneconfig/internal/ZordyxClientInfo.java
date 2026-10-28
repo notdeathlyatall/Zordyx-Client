@@ -10,9 +10,11 @@ package org.polyfrost.oneconfig.internal;
  * the launcher could not tell Zordyx Client and OneConfig apart and why their menus fought over the same state.
  * <p>
  * {@link #MOD_ID} and {@link #PLATFORM_MOD_ID} are therefore unique to this fork, while
- * {@link #UPSTREAM_MOD_ID} and {@link #UPSTREAM_PLATFORM_MOD_ID} stay declared in the mod metadata's
- * {@code provides} list so that mods depending on OneConfig still resolve against this mod instead of failing to
- * load. See {@code bootstrap/src/main/resources/fabric.mod.json}.
+ * {@link #UPSTREAM_MOD_ID} and {@link #UPSTREAM_PLATFORM_MOD_ID} are owned by a small metadata-only mod that is
+ * nested inside the bootstrap jar, so that mods depending on OneConfig still resolve instead of failing to load.
+ * A {@code provides} entry on this mod could not do that: Fabric Loader checks a dependency's version constraint
+ * against the version of the mod that owns the id, and this fork's release version has nothing to do with the
+ * OneConfig version third-party mods ask for. See {@code modules/compat}.
  */
 public final class ZordyxClientInfo {
     private ZordyxClientInfo() {
@@ -25,13 +27,14 @@ public final class ZordyxClientInfo {
     public static final String PLATFORM_MOD_ID = "zordyx_client_v1";
 
     /**
-     * The upstream OneConfig id, declared through {@code provides} so {@code depends: oneconfig} in third-party mods
-     * keeps resolving. It is also how this mod detects the real upstream jar, which cannot share a game instance
-     * with this fork because both ship the same {@code org.polyfrost.oneconfig} classes.
+     * The upstream OneConfig id, owned by the compatibility mod in {@code modules/compat} so
+     * {@code depends: oneconfig} in third-party mods keeps resolving against the OneConfig version those mods were
+     * built for. The real upstream jar cannot share a game instance with this fork because both ship the same
+     * {@code org.polyfrost.oneconfig} classes.
      */
     public static final String UPSTREAM_MOD_ID = "oneconfig";
 
-    /** The upstream platform module id, provided by this fork's platform module for the same reason. */
+    /** The upstream platform module id, provided by the compatibility mod for the same reason. */
     public static final String UPSTREAM_PLATFORM_MOD_ID = "oneconfigv1";
 
     /** The id earlier versions of this mod used as a fallback namespace, still provided for compatibility. */
