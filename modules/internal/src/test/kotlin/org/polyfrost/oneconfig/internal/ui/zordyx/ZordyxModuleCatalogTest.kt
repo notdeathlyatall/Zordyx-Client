@@ -108,7 +108,7 @@ class ZordyxModuleCatalogTest {
         val aimAssist = entries.single()
         assertEquals("AimAssist", aimAssist.name)
         assertEquals(
-            "Helps you keep your aim on target by smoothly adjusting your crosshair's position.",
+            "Analyzes and prioritizes nearby targets without moving your crosshair.",
             aimAssist.description,
         )
         assertTrue(aimAssist.hasSettings, "the row must offer a way into the settings screen")

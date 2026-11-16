@@ -82,7 +82,7 @@ object ZordyxCatalog {
         // Combat
         ModuleEntry(
             AIM_ASSIST_ID, "AimAssist", ModuleCategory.Combat,
-            "Helps you keep your aim on target by smoothly adjusting your crosshair's position.",
+            "Analyzes and prioritizes nearby targets without moving your crosshair.",
             hasSettings = true,
         ),
         ModuleEntry("auto-clicker", "AutoClicker", ModuleCategory.Combat, "Clicks at a steady rate while the attack button is held."),

@@ -6,28 +6,37 @@ import androidx.compose.runtime.setValue
 import java.util.Locale
 import kotlin.math.roundToInt
 import kotlinx.serialization.Serializable
+import org.polyfrost.oneconfig.api.event.v1.EventManager
+import org.polyfrost.oneconfig.api.event.v1.events.TickEvent
+import org.polyfrost.oneconfig.internal.combat.aim.AimAnalysis
+import org.polyfrost.oneconfig.internal.combat.aim.AimAnalysisEngine
+import org.polyfrost.oneconfig.internal.combat.aim.AimAssistConfigStore
+import org.polyfrost.oneconfig.internal.combat.aim.AimAssistFeed
+import org.polyfrost.oneconfig.internal.combat.aim.AimAssistStoredConfig
+import org.polyfrost.oneconfig.internal.combat.aim.AimStatus
+import org.polyfrost.oneconfig.internal.combat.aim.AimWorld
 
 /**
  * The AimAssist configuration model.
  *
- * This is the settings a future AimAssist runtime would read, and the whole of what the settings
- * screen edits: nothing here attacks, rotates the view or touches an entity. The model is serializable
- * so it can be written to a config file once a runtime exists, and it validates itself so a value from
- * anywhere (an old file, a text field, a plugin) cannot leave a setting outside its range.
+ * This is what the analysis runtime reads and the whole of what the settings screen edits: nothing here
+ * attacks, rotates the view or touches an entity. The model is serializable so it can be written to the
+ * config store, and it validates itself so a value from anywhere (an old file, a text field, a plugin)
+ * cannot leave a setting outside its range.
  */
 
-/** How AimAssist moves the view. */
+/** How AimAssist ranks candidate targets. */
 @Serializable
 enum class AimAssistMode(val title: String, val description: String) {
-    Simple("Simple", "Lightweight smooth aiming."),
-    Adaptive("Adaptive", "Advanced tracking with adaptive behaviour."),
+    Simple("Simple", "Ranks targets with the selected target mode."),
+    Adaptive("Adaptive", "Also weighs angular precision and target movement."),
 }
 
-/** Which point of a target the view is moved towards. */
+/** Which point of a target is measured. */
 @Serializable
 enum class AimAssistTargetArea(val title: String, val description: String) {
-    Center("Center", "Aim at the center of the target hitbox."),
-    Closest("Closest", "Aim at the closest position on the target hitbox."),
+    Center("Center", "Measure the center of the target hitbox."),
+    Closest("Closest", "Measure the closest position on the target hitbox."),
 }
 
 /** How a target is picked when several are in range. */
@@ -144,17 +153,103 @@ fun splitAimAssistEntries(raw: String): List<String> =
     raw.split(',', '\n').map { it.trim() }.filter { it.isNotEmpty() }.distinct()
 
 /**
- * The AimAssist settings as the interface sees them.
+ * The AimAssist settings and runtime as the interface sees them.
  *
- * Process state on purpose: the settings survive switching subsections and reopening the interface, and
- * nothing is written to disk, because no AimAssist runtime exists yet to consume a saved file. [update]
- * normalizes every change so a value can never be stored out of range.
+ * Settings and the module's enabled state are persisted when they change and loaded once, so they survive
+ * a restart. The object also owns the analysis engine: a platform adapter sets [feed], the tick listener
+ * calls [analyze] on every client tick, and the settings screen reads [analysis] for its diagnostics. The
+ * engine only analyses targets; nothing here rotates the camera or changes the crosshair.
  */
 object ZordyxAimAssist {
-    var settings by mutableStateOf(AimAssistSettings())
+    private val store by lazy { AimAssistConfigStore(AimAssistConfigStore.defaultPath()) }
+    private val engine = AimAnalysisEngine()
+
+    @Volatile
+    private var loaded = false
+
+    @Volatile
+    private var listenerRegistered = false
+
+    private var storedSettings by mutableStateOf(AimAssistSettings())
+    private var storedEnabled by mutableStateOf(false)
+
+    /** The latest analysis pass, or null before the first world snapshot arrives. */
+    var analysis by mutableStateOf<AimAnalysis?>(null)
         private set
 
+    /** The platform adapter that supplies world snapshots. Null until a game platform installs one. */
+    var feed: AimAssistFeed? = null
+
+    val settings: AimAssistSettings
+        get() {
+            ensureLoaded()
+            return storedSettings
+        }
+
+    val enabled: Boolean
+        get() {
+            ensureLoaded()
+            return storedEnabled
+        }
+
     fun update(transform: (AimAssistSettings) -> AimAssistSettings) {
-        settings = transform(settings).normalized()
+        ensureLoaded()
+        val updated = transform(storedSettings).normalized()
+        if (updated == storedSettings) return
+        storedSettings = updated
+        persist()
+    }
+
+    fun setEnabled(value: Boolean) {
+        ensureLoaded()
+        if (storedEnabled == value) return
+        storedEnabled = value
+        if (!value) {
+            engine.reset()
+            analysis = AimAnalysis(AimStatus.Disabled)
+        }
+        persist()
+    }
+
+    /** Analyses [world] with the current settings and records the result for the diagnostics panel. */
+    fun analyze(world: AimWorld): AimAnalysis {
+        ensureLoaded()
+        val result = engine.analyze(world, storedSettings, storedEnabled)
+        analysis = result
+        return result
+    }
+
+    /** Called by the client tick listener; does nothing until a feed and an enabled module are present. */
+    fun tick() {
+        ensureLoaded()
+        if (!storedEnabled) return
+        val snapshot = feed?.snapshot() ?: return
+        analyze(snapshot)
+    }
+
+    /** Registers the client tick listener once; repeated calls are harmless. */
+    fun ensureTickListener() {
+        if (listenerRegistered) return
+        listenerRegistered = true
+        runCatching {
+            EventManager.register(TickEvent.End::class.java, Runnable { tick() })
+        }.onFailure {
+            listenerRegistered = false
+        }
+    }
+
+    private fun ensureLoaded() {
+        if (loaded) return
+        synchronized(this) {
+            if (loaded) return
+            val stored = store.load()
+            storedSettings = stored.settings
+            storedEnabled = stored.enabled
+            loaded = true
+        }
+    }
+
+    private fun persist() {
+        store.save(AimAssistStoredConfig(storedEnabled, storedSettings))
     }
 }

@@ -3,50 +3,67 @@ package org.polyfrost.oneconfig.internal.ui.zordyx
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import java.util.Locale
+import kotlin.math.abs
+import kotlin.math.roundToInt
 import org.polyfrost.oneconfig.internal.ui.components.Chip
 import org.polyfrost.oneconfig.internal.ui.components.Text
 import org.polyfrost.oneconfig.internal.ui.components.settings.SliderControl
 import org.polyfrost.oneconfig.internal.ui.components.settings.SwitchControl
 import org.polyfrost.oneconfig.internal.ui.shell.PageGutter
+import org.polyfrost.oneconfig.internal.ui.themes.Accent
 import org.polyfrost.oneconfig.internal.ui.themes.LocalTheme
 
 /**
  * The AimAssist settings screen, opened from the AimAssist row in the Combat subsection.
  *
- * Every control writes to [ZordyxAimAssist], so values survive switching subsections and reopening the
- * interface. Nothing on this page is applied to the game: there is no AimAssist runtime yet, and the
- * note at the top says so.
+ * Every control writes through [ZordyxAimAssist], which persists the value and feeds the analysis engine.
+ * The diagnostics group shows what the engine currently sees. Analysis never moves the camera or the
+ * crosshair, which the note at the top states explicitly.
  */
 @Composable
 fun ZordyxAimAssistSettings() {
     val settings = ZordyxAimAssist.settings
 
+    LaunchedEffect(Unit) { ZordyxAimAssist.ensureTickListener() }
+
     Column(
         Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = PageGutter),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        ZordyxTitle("AimAssist", "Helps you keep your aim on target by smoothly adjusting your crosshair's position.")
+        ZordyxTitle("AimAssist", "Analyzes nearby targets and reports the best one to aim at.")
         ZordyxPreviewNote(
-            "Settings only. AimAssist has no aiming behaviour in this build, so nothing on this page changes your game."
+            "Target analysis only. AimAssist selects and scores targets and reports aim error; it never moves your camera or crosshair."
         )
 
-        AimAssistGroup("Mode", "How AimAssist moves your view.") {
+        AimAssistGroup(
+            "Target Analysis",
+            "Live diagnostics for the current candidate. The bars show angular error only and do not affect the camera.",
+        ) {
+            AimAssistDiagnostics(settings.maxAngle)
+        }
+
+        AimAssistGroup("Mode", "How AimAssist ranks candidate targets.") {
             AimAssistChoice(
                 options = AimAssistMode.entries,
                 selected = settings.mode,
@@ -171,6 +188,84 @@ fun ZordyxAimAssistSettings() {
 }
 
 private fun update(transform: (AimAssistSettings) -> AimAssistSettings) = ZordyxAimAssist.update(transform)
+
+/**
+ * The live target-analysis readout.
+ *
+ * It only displays what the engine last returned. When no platform feed is installed yet the panel says so
+ * instead of inventing a target, so the page never suggests an analysis that did not happen.
+ */
+@Composable
+private fun AimAssistDiagnostics(maxAngle: Float) {
+    val theme = LocalTheme.current
+    val enabled = ZordyxAimAssist.enabled
+    val analysis = ZordyxAimAssist.analysis
+    val candidate = analysis?.target
+
+    DiagnosticRow("Status", if (enabled) analysis?.status?.label ?: "Waiting for target data" else "Disabled")
+    DiagnosticRow(
+        "Candidates",
+        "${analysis?.eligible ?: 0} eligible of ${analysis?.considered ?: 0} considered",
+    )
+    if (candidate != null) {
+        DiagnosticRow("Target", "${candidate.target.name} (${candidate.target.kind.label})")
+        DiagnosticRow("Distance", String.format(Locale.ROOT, "%.2f blocks", candidate.distance))
+        DiagnosticRow("Angle", String.format(Locale.ROOT, "%.1f\u00B0", candidate.angle))
+        DiagnosticRow(
+            "Analysis speed",
+            "${analysis.horizontalSpeed.roundToInt()}% horizontal, ${analysis.verticalSpeed.roundToInt()}% vertical",
+        )
+        AimErrorBar("Horizontal error", candidate.yawDelta, maxAngle)
+        AimErrorBar("Vertical error", candidate.pitchDelta, maxAngle)
+    } else {
+        DiagnosticRow("Target", "None")
+        DiagnosticRow("Analysis speed", "0% horizontal, 0% vertical")
+    }
+
+    if (analysis == null) {
+        Text(
+            "No world snapshot yet. The engine starts analysing when a platform feed supplies nearby entities.",
+            color = theme.textColorSecondary,
+            fontSize = 11.sp,
+            lineHeight = 15.sp,
+        )
+    }
+}
+
+@Composable
+private fun DiagnosticRow(label: String, value: String) {
+    val theme = LocalTheme.current
+    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        Text(label, color = theme.textColorSecondary, fontSize = 12.sp, modifier = Modifier.weight(1f))
+        Text(value, color = theme.textColor, fontSize = 12.sp)
+    }
+}
+
+/** A read-only bar showing how far the selected target is from the crosshair. */
+@Composable
+private fun AimErrorBar(label: String, value: Float, maxAngle: Float) {
+    val theme = LocalTheme.current
+    val fraction = (abs(value) / maxAngle.coerceAtLeast(1f)).coerceIn(0f, 1f)
+    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Text(label, color = theme.textColorSecondary, fontSize = 11.sp, modifier = Modifier.weight(1f))
+            Text(
+                String.format(Locale.ROOT, "%+.1f\u00B0", value),
+                color = theme.textColorSecondary,
+                fontSize = 11.sp,
+            )
+        }
+        Box(
+            Modifier.fillMaxWidth().height(4.dp)
+                .background(theme.chipBackground, CircleShape),
+        ) {
+            Box(
+                Modifier.fillMaxWidth(fraction).height(4.dp)
+                    .background(Accent, CircleShape),
+            )
+        }
+    }
+}
 
 /** One titled group of AimAssist settings, drawn with the same card used elsewhere on the interface. */
 @Composable

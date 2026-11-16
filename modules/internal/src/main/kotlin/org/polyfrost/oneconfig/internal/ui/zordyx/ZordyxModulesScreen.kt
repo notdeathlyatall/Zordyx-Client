@@ -109,14 +109,12 @@ fun ZordyxModulesScreen(category: ModuleCategory) {
                 contentPadding = PaddingValues(horizontal = PageGutter, vertical = 2.dp),
             ) {
                 items(visible, key = { it.id }) { module ->
-                    val enabled = ZordyxState.isEnabled(module.id, module.enabled)
+                    val enabled = moduleEnabled(module)
                     ZordyxToggleRow(
                         name = module.name,
                         description = module.description,
                         enabled = enabled,
-                        onToggle = {
-                            ZordyxState.setEnabled(module.id, !ZordyxState.isEnabled(module.id, module.enabled))
-                        },
+                        onToggle = { toggleModule(module) },
                         icon = module.icon ?: category.icon,
                         tags = module.tags,
                         trailing = {
@@ -129,9 +127,7 @@ fun ZordyxModulesScreen(category: ModuleCategory) {
                                         navigation.navigate(ZordyxModuleSettingsRoute(module.id))
                                     }
                                 }
-                                SwitchControl(enabled) {
-                                    ZordyxState.setEnabled(module.id, !ZordyxState.isEnabled(module.id, module.enabled))
-                                }
+                                SwitchControl(enabled) { toggleModule(module) }
                             }
                         },
                     )
@@ -142,6 +138,19 @@ fun ZordyxModulesScreen(category: ModuleCategory) {
 }
 
 private fun count(size: Int, singular: String): String = "$size " + if (size == 1) singular else singular + "s"
+
+/** AimAssist is the one module whose enabled state is persisted and drives a runtime. */
+private fun moduleEnabled(module: ModuleEntry): Boolean =
+    if (module.id == ZordyxCatalog.AIM_ASSIST_ID) ZordyxAimAssist.enabled
+    else ZordyxState.isEnabled(module.id, module.enabled)
+
+private fun toggleModule(module: ModuleEntry) {
+    if (module.id == ZordyxCatalog.AIM_ASSIST_ID) {
+        ZordyxAimAssist.setEnabled(!ZordyxAimAssist.enabled)
+    } else {
+        ZordyxState.setEnabled(module.id, !ZordyxState.isEnabled(module.id, module.enabled))
+    }
+}
 
 /**
  * The settings screen behind a module row's settings button.
