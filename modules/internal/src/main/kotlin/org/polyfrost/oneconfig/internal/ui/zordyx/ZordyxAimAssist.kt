@@ -219,11 +219,17 @@ object ZordyxAimAssist {
         return result
     }
 
-    /** Called by the client tick listener; does nothing until a feed and an enabled module are present. */
+    /** Called by the client tick listener; does nothing until the module is enabled and a feed is installed. */
     fun tick() {
         ensureLoaded()
         if (!storedEnabled) return
-        val snapshot = feed?.snapshot() ?: return
+        val snapshot = feed?.snapshot()
+        if (snapshot == null) {
+            // Leaving a world must not leave the last target on screen as if it were still live.
+            engine.reset()
+            if (analysis?.status != AimStatus.NoTarget) analysis = AimAnalysis(AimStatus.NoTarget)
+            return
+        }
         analyze(snapshot)
     }
 

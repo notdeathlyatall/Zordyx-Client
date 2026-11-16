@@ -61,6 +61,7 @@ import org.polyfrost.oneconfig.internal.compat.CompatLoader;
 import org.polyfrost.oneconfig.internal.compat.ConfigEntrypoints;
 import org.polyfrost.oneconfig.internal.compat.KaleidoCompat;
 import org.polyfrost.oneconfig.internal.compat.toggle.ModGates;
+import org.polyfrost.oneconfig.internal.combat.MinecraftAimAssistFeed;
 import org.polyfrost.oneconfig.internal.ZordyxClientInfo;
 import org.polyfrost.oneconfig.internal.ZordyxMigration;
 import org.polyfrost.oneconfig.internal.ui.api.ConfigRegistry;
@@ -459,6 +460,7 @@ public class OneConfig
         new ThemeConfig();
         registerCommands();
         registerEventHandlers();
+        MinecraftAimAssistFeed.INSTANCE.install();
         installNotificationRenderer();
         MainMenuFpsSampler.init();
         //? fabric
