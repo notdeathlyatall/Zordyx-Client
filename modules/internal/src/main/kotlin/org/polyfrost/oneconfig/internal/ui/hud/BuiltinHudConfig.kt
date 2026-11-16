@@ -32,6 +32,9 @@ object BuiltinHudRegistrar {
     @JvmStatic
     fun register() {
         ConfigRegistry.register(BuiltinHudConfigData)
+        if (HudManager.providers().none { it is AimAssistHud }) {
+            HudManager.register(AimAssistHud())
+        }
         HudManager.providers().forEach { hud ->
             if (hud.configId == null) hud.configId = BUILTIN_HUD_CONFIG_ID
         }
